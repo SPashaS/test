@@ -1,0 +1,253 @@
+// Заголовки, общие БЄМ блоки и проче...
+
+.title {
+    font-weight: 600;
+    font-size: 19px;
+    @media only screen and (min-width:$mobile){
+        font-weight: 700;
+        font-size: 26px;
+    }
+    @media only screen and (min-width:$tablet){
+        font-size: 32px;
+    }
+    @media only screen and (min-width:$pcSmall){
+        font-size: 38px;
+    }
+    @media only screen and (min-width:$pc){
+        font-size: 48px;
+    }
+
+}
+
+.phone-number {
+    color: $blueColor;
+    font-weight: 600;
+	font-size: 23px;
+    display: inline-block;
+    position: relative;
+    &::after{
+        position: absolute;
+        content: "";
+        left: 0;
+        right: 0;
+        height: 2px;
+        bottom: 2px;
+        background: $blueColor;
+        width: 0;
+        transition: all 0.3s ease 0s;
+    }
+    @media (any-hover: hover){
+        &:hover{
+            &::after {
+                width: 100%;
+            }
+        }
+    }
+}
+
+a.email {
+    display: inline-block;
+	color: $blueColor;
+	text-decoration-line: underline;
+    transition: all 0.3s ease 0s;
+    @media (any-hover: hover){
+        &:hover{
+            opacity: 0.7;
+        }
+    }
+}
+.call-back {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #949597;
+	border-radius: 22px;
+	height: 37px;
+	padding: 0 22px;
+    transition: all 0.3s ease 0s;
+    &_blue {
+        border-color: $blueColor;
+        color: $blueColor;
+    }
+    @media only screen and (min-width:$tablet){
+        font-size: 12px;
+        padding: 0 20px;
+        height: 35px;
+    }
+    @media only screen and (min-width:$pc){
+        font-size: 13px;
+    }
+    @media only screen and (any-hover: hover){
+        &:hover{
+            background: #949597;
+            color: #fff;
+        }
+        &_blue:hover {
+            background: $blueColor;
+        }
+    }
+}
+//====================================================================================================
+.social-list {
+	display: flex;
+    flex-wrap: wrap;
+    // justify-content: center;
+    
+	// .social-list__item
+	&__item {
+		// margin: 3.91px;
+        margin: 3.91px 3.1px;
+		width: 28px;
+		height: 28px;
+		background: $snowColor;
+		border-radius: 50%;
+        color: #fff;
+        transition: color 0.3s ease 0s;
+        position: relative;
+
+        svg {
+            fill: #fff;
+        }
+        svg,
+        &::before{
+            transition: all 0.3s ease 0s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        &_yandex {
+            background:#FFCC00;
+        }
+        &_instagram {
+            background:linear-gradient(181.45deg, #AB30A7 -2.68%, #D5223E 98.77%);
+        }
+        &_ok {
+            background: #FF9205;
+        }
+        &_youtube {
+            background: #C4302B;
+        }
+        &_telegram {
+            background: #0088CC;
+        }
+        &_vk {
+            background:#6695BD;
+        }
+        &_facebook {
+            background:#3B5998;
+        }
+        &_viber {
+            background:#8F5DB7;
+        }
+        &_whatsapp {
+            background:#25D366;
+        }
+        &_email {
+            background: #7F9D87;
+        }
+        @media only screen and (min-width:$pcSmall){
+            width: 32px;
+            height: 32px;
+        }
+        @media (any-hover: hover){
+            &:hover{
+                // opacity: 0.8;
+                color: #000;
+            }
+        }
+	}
+}
+//====================================================================================================
+.contacts-block {
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+    @media only screen and (min-width:$tablet){
+        align-items: end;
+        padding-right: 5px;
+    }
+	
+    // .contacts-block__body
+    &__body {
+        text-align: center;
+    }
+	&__text {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 1;
+        margin-bottom: 5px;
+		// color: #949597;
+        color: #fff;
+        @media only screen and (min-width:$tablet){
+            font-size: 13px;
+            // .dark & {
+			// 	color: #fff;
+			// }
+        }
+	}
+	&__call {
+		font-weight: 600;
+		display: block;
+        font-size: 18px;
+        text-transform: uppercase;
+        color: #fff;
+        transition: all 0.3s ease 0s;
+        @media (any-hover: hover){
+            &:hover{
+                opacity: 0.7;
+            }
+        }
+        // @media only screen and (min-width:$tablet){
+        //     font-size: 20px;
+        // }
+        @media only screen and (min-width:$pcSmall){
+            font-size: 22px;
+        }
+        @media only screen and (min-width:$pcSmall){
+            font-size: 26px;
+        }
+        @media only screen and (min-width:$pcSmall){
+            line-height: 1;
+        }
+	}
+    .contacts-block__email {
+        text-decoration: underline;
+    }
+	&__email {
+		font-weight: 400;
+		font-size: 13px;
+		line-height: 1.69;
+		// display: block;
+		color: #fff;
+		align-items: center;
+		text-decoration-line: underline;
+	}
+    @media (min-width:$mobile){
+        &__body {
+            text-align: right;
+        }
+    }
+}
+//====================================================================================================
+
+
+
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================
+
+//====================================================================================================

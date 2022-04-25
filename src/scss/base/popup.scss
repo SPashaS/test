@@ -1,0 +1,266 @@
+body::after {
+	content: "";
+	background-color: #000;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 0.8s ease 0s;
+	pointer-events: none;
+	z-index: 149;
+}
+body.popup-show::after {
+	opacity: 0.15;
+}
+
+.popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 15px 6px;
+	transition: visibility 0.8s ease 0s;
+	visibility: hidden;
+	pointer-events: none;
+	@media only screen and (min-width:$mobile){
+		padding: 20px;
+	}
+}
+.popup_show {
+	z-index: 150;
+	visibility: visible;
+	overflow: auto;
+	pointer-events: auto;
+}
+.popup_show .popup__content {
+	visibility: visible;
+	transform: scale(1);
+}
+.popup__wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100%;
+	flex: 1 1 auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.popup__content {
+	visibility: hidden;
+	transform: scale(0);
+	transition: transform 0.3s ease 0s;
+	padding: 20px;
+	width: 100%;
+	max-width: 900px;
+	border-radius: 20px;
+	background: #FFFFFF;
+	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+	border-radius: 8px;
+	.lock & {
+		visibility: visible;
+	}
+}
+
+#callback .popup__content {
+	max-width: 507px;
+}
+
+#contact .popup__content {
+	max-width: 930px;
+	.form-popup__item:nth-child(1),
+	.form-popup__item:nth-child(4) {
+		width: 100%;
+	}
+	.form-popup__button {
+		@media only screen and (min-width:$mobile){
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+.popup {
+	// .popup__wrapper
+	&__wrapper {
+	}
+
+	// .popup__content
+
+	&__content {
+		@media only screen and (min-width:$mobile){
+			padding: 50px 78px 75px;
+		}
+	}
+
+	// .popup__close
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translate(-7px, 6px);
+		background: 0;
+		&::before{
+			font-size: 18px;
+			color: #000;
+		}
+		@media only screen and (min-width:$mobile){
+			transform: translate(18px, -18px);
+			&::before{
+				color: #fff;
+			}
+		}
+		
+	}
+
+	// .popup__body
+
+	&__body {
+	}
+
+	// .popup__title
+
+	&__title {
+		font-weight: 600;
+		font-size: 36px;
+		line-height: 43px;
+		margin-bottom: 13px;
+		color: #1F1F1F;
+	}
+
+	// .popup__sub-title
+	&__sub-title {
+		font-size: 15px;
+		line-height: 22px;
+		color: #8B8B8B;
+		margin-bottom: 33px;
+	}
+
+	// .popup__form
+	&__form {
+	}
+}
+
+.form-popup {
+	display: flex;
+	flex-direction: column;
+
+	// .form-popup__items
+	&__items {
+		margin-bottom: 34px;
+		@media only screen and (min-width:$tablet){
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+		
+	}
+
+	// .form-popup__item
+	&__item {
+
+
+		// position: relative;
+		&:not(:last-child) {
+			margin-bottom: 18px;
+		}
+		&:focus {
+            border: 1px solid $blueColor;
+            outline: 1px solid $blueColor;
+			background: red;
+        }
+		textarea,
+		input {
+			width: 100%;
+			height: 100%;
+			outline: 0;
+			background: #F5F6F7;
+			border-radius: 10px;	
+			padding: 0 20px;
+			display: block;
+			// position: absolute;
+			// top: 0;
+			// left: 0;
+		}
+
+		input {
+			height: 60px;
+			width: 100%;
+			@media only screen and (min-width:$tablet){
+				width: 348px;
+			}
+			
+		}
+		textarea {
+			resize: none;
+			padding: 20px 25px;
+			height: 130px;
+		}
+
+		label {
+			font-size: 0;
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	// .form-popup__footer
+	&__footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		@media only screen and (min-width:$mobile){ 
+			flex-direction: row-reverse;
+			justify-content: space-between;
+			align-items: center;
+		}
+		@media only screen and (min-width:$tablet){ 
+			padding: 0 10px 0 25px;
+		}
+		
+		.form-popup__button{
+
+		}
+		.form-popup__agreement{
+
+		}
+	}
+	// .form-popup__button
+	&__button {
+		margin-bottom: 31px;
+	}
+
+	// .form-popup__agreement
+	&__agreement {
+		align-self: center;
+		max-width: 320px;
+	}
+
+	// .form-popup__checkbox
+	&__checkbox {
+	}
+}
+
+.button-popup {
+	padding: 0px 55px;
+	font-size: 17px;
+	min-height: 46px;
+	background: $blueColor;
+	border-radius: 50px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	align-self: center;
+	transition: background-color 0.3s ease 0s;
+	@media (any-hover: hover){
+		&:hover{
+			background-color: #44769c;
+		}
+	}
+}
+
