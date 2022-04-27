@@ -914,7 +914,6 @@ a.email {
   background: #EDEEE9;
   border-radius: 50%;
   color: #fff;
-  transition: color 0.3s ease 0s;
   position: relative;
   transition: all 0.3s ease 0s;
 }
@@ -966,7 +965,7 @@ a.email {
 }
 @media (any-hover: hover) {
   .social-list__item:hover {
-    background: #FBC13B;
+    opacity: 0.6;
   }
 }
 
@@ -1729,6 +1728,19 @@ a.email {
   .center-header__item_social-list .social-list .social-list__item::before {
     color: #55595C;
   }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .center-header__item_social-list .social-list .social-list__item:hover {
+    opacity: 1;
+  }
+  .center-header__item_social-list .social-list .social-list__item:hover svg {
+    fill: #FBC13B;
+  }
+  .center-header__item_social-list .social-list .social-list__item:hover::before {
+    color: #FBC13B;
+  }
+}
+@media only screen and (min-width: 1023.98px) {
   .dark .center-header__item_social-list .social-list .social-list__item {
     border: 1px solid #DAD2C7;
     background: transparent;
@@ -1746,6 +1758,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item:hover {
+    opacity: 1;
     border: 1px solid #FBC13B;
     background: transparent;
   }
@@ -1774,6 +1787,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover {
+    opacity: 1;
     background: #FBC13B;
   }
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover::before {
@@ -2952,11 +2966,15 @@ a.email {
   color: #55595C;
 }
 @media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item:hover {
+    background: #fff;
+    opacity: 1;
+  }
   .contacts-footer__item .social-list > .social-list__item:hover svg {
-    fill: #fff;
+    fill: #FBC13B;
   }
   .contacts-footer__item .social-list > .social-list__item:hover::before {
-    color: #fff;
+    color: #FBC13B;
   }
 }
 @media only screen and (min-width: 767.98px) {
