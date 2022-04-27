@@ -964,6 +964,11 @@ a.email {
     height: 32px;
   }
 }
+@media (any-hover: hover) {
+  .social-list__item:hover {
+    background: #FBC13B;
+  }
+}
 
 .contacts-block {
   display: flex;
@@ -1160,6 +1165,7 @@ a.email {
 }
 @media only screen and (max-width: 1023.98px) {
   .header__menu-wrapper {
+    transition: all 0.3s ease 0s;
     position: fixed;
     z-index: 2;
     left: 0;
@@ -1714,16 +1720,21 @@ a.email {
   .center-header__item_social-list .social-list .social-list__item {
     background: #EDEEE9;
   }
+  .center-header__item_social-list .social-list .social-list__item svg, .center-header__item_social-list .social-list .social-list__item::before {
+    transition: all 0.3s ease 0s;
+  }
   .center-header__item_social-list .social-list .social-list__item svg {
     fill: #55595C;
   }
   .center-header__item_social-list .social-list .social-list__item::before {
     color: #55595C;
-    transition: opacity 0.3s ease 0s;
   }
   .dark .center-header__item_social-list .social-list .social-list__item {
     border: 1px solid #DAD2C7;
     background: transparent;
+    transition: all 0.3s ease 0s;
+  }
+  .dark .center-header__item_social-list .social-list .social-list__item svg, .dark .center-header__item_social-list .social-list .social-list__item::before {
     transition: all 0.3s ease 0s;
   }
   .dark .center-header__item_social-list .social-list .social-list__item svg {
@@ -1731,7 +1742,6 @@ a.email {
   }
   .dark .center-header__item_social-list .social-list .social-list__item::before {
     color: #DAD2C7;
-    transition: opacity 0.3s ease 0s;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
@@ -1744,30 +1754,32 @@ a.email {
   }
   .dark .center-header__item_social-list .social-list .social-list__item:hover::before {
     color: #FBC13B;
-    transition: opacity 0.3s ease 0s;
   }
 }
 @media only screen and (min-width: 1023.98px) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item {
     background: #EDEEE9;
     border: 0;
+    transition: all 0.3s ease 0s;
+  }
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item svg, .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item::before {
+    transition: all 0.3s ease 0s;
   }
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item svg {
     fill: #55595C;
   }
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item::before {
     color: #55595C;
-    transition: opacity 0.3s ease 0s;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
-  .center-header__item_social-list .social-list .social-list__item:hover {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover {
     background: #FBC13B;
   }
-  .center-header__item_social-list .social-list .social-list__item:hover::before {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover::before {
     color: #fff;
   }
-  .center-header__item_social-list .social-list .social-list__item:hover svg {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover svg {
     fill: #fff;
   }
 }
@@ -2338,6 +2350,7 @@ a.email {
   display: flex;
   flex-direction: column;
   padding: 5px 0 32px;
+  position: relative;
 }
 @media only screen and (max-width: 1023.98px) {
   .menu {
@@ -2932,8 +2945,19 @@ a.email {
 .contacts-footer__item {
   text-align: center;
 }
-.contacts-footer__item .social-list__item::before {
+.contacts-footer__item .social-list > .social-list__item svg {
+  fill: #55595C;
+}
+.contacts-footer__item .social-list > .social-list__item::before {
   color: #55595C;
+}
+@media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item:hover svg {
+    fill: #fff;
+  }
+  .contacts-footer__item .social-list > .social-list__item:hover::before {
+    color: #fff;
+  }
 }
 @media only screen and (min-width: 767.98px) {
   .contacts-footer__item {

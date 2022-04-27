@@ -7909,7 +7909,7 @@
         t.classList.contains("menu__sub-list-back") &&
           t.parentNode.classList.remove("_open");
     }),
-    (document.querySelector(".menu__body").onmouseleave = Te),
+    (document.querySelector(".menu").onmouseleave = Te),
     document.querySelectorAll(".menu__sub-list").forEach(function (e, t, i) {
       e &&
         (e.insertAdjacentHTML(
