@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20220427000315">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220427160858">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,8 +32,8 @@
 					<div class="mobile-header__contacts contacts-button-mobile"></div>
 				</div>
 				<div class="header__body">
-					<div class="header__menu menu">
-						<div class="menu__row">
+					<div class="header__menu-wrapper">
+						<div class="menu">
 							<nav class="menu__body">
 								<ul class="menu__list">
 									<li class="menu__item"><a href="#" class="menu__link">Главная</a></li>
@@ -148,9 +148,10 @@
 								</button>
 							</div>
 						</div>
-						<div class="menu__call-back">
+						<div class="header__call-back">
 							<a href="#" data-popup="#callback" class="call-back">Обратный звонок</a>
 						</div>
+						<div class="header__menu-background"></div>
 					</div>
 					<div class="header__logo logo-header">
 						<a href="#" class="logo-header__link">
@@ -405,55 +406,54 @@
 				</div>
 			</section>
 			<div class="page__about about">
-				<div class="about__container">
-					<div class="about__row" data-simplebar>
-						<div class="about__item item-about">
-							<div class="item-about__image">
-								<img src="img/about/experience.svg" alt="Реальный опыт" title="Реальный опыт">
-							</div>
-							<div class="item-about__content">
-								<h3 class="item-about__title">Реальный опыт</h3>
-								<p class="item-about__text">
-									Большой опыт работы 6 лет на рынке, более 5 тысяч клиентов!
-								</p>
-							</div>
+				<!-- <div class="about__container"> -->
+				<div class="about__row" data-simplebar>
+					<div class="about__item item-about">
+						<div class="item-about__image">
+							<img src="img/about/experience.svg" alt="Реальный опыт" title="Реальный опыт">
 						</div>
-						<div class="about__item item-about">
-							<div class="item-about__image">
-								<img src="img/about/production.svg" alt="Собственное производство" title="Собственное производство">
-							</div>
-							<div class="item-about__content">
-								<h3 class="item-about__title">Собственное производство</h3>
-								<p class="item-about__text">
-									Мы - производители и гарантируем лучшую цену
-								</p>
-							</div>
+						<div class="item-about__content">
+							<p class="item-about__title">Реальный опыт</p>
+							<p class="item-about__text">
+								Большой опыт работы 6 лет на рынке, более 5 тысяч клиентов!
+							</p>
 						</div>
-						<div class="about__item item-about">
-							<div class="item-about__image">
-								<img src="img/about/time.svg" alt="Ценим ваше время" title="Ценим ваше время">
-							</div>
-							<div class="item-about__content">
-								<h3 class="item-about__title">Ценим ваше время</h3>
-								<p class="item-about__text">
-									Минимальный срок заказа – всего 2 дня!
-								</p>
-							</div>
+					</div>
+					<div class="about__item item-about">
+						<div class="item-about__image">
+							<img src="img/about/production.svg" alt="Собственное производство" title="Собственное производство">
 						</div>
-						<div class="about__item item-about">
-							<div class="item-about__image">
-								<img src="img/about/certificates.svg" alt="Продукция сертифицирована" title="Продукция сертифицирована">
-							</div>
-							<div class="item-about__content">
-								<h3 class="item-about__title">Продукция
-									сертифицирована</h3>
-								<p class="item-about__text">
-									Предоставляем все необходимые сертификаты и документы
-								</p>
-							</div>
+						<div class="item-about__content">
+							<p class="item-about__title">Собственное производство</p>
+							<p class="item-about__text">
+								Мы - производители и гарантируем лучшую цену
+							</p>
+						</div>
+					</div>
+					<div class="about__item item-about">
+						<div class="item-about__image">
+							<img src="img/about/time.svg" alt="Ценим ваше время" title="Ценим ваше время">
+						</div>
+						<div class="item-about__content">
+							<p class="item-about__title">Ценим ваше время</p>
+							<p class="item-about__text">
+								Минимальный срок заказа – всего 2 дня!
+							</p>
+						</div>
+					</div>
+					<div class="about__item item-about">
+						<div class="item-about__image">
+							<img src="img/about/certificates.svg" alt="Продукция сертифицирована" title="Продукция сертифицирована">
+						</div>
+						<div class="item-about__content">
+							<p class="item-about__title">Продукция сертифицирована</p>
+							<p class="item-about__text">
+								Предоставляем все необходимые сертификаты и документы
+							</p>
 						</div>
 					</div>
 				</div>
+				<!-- </div> -->
 			</div>
 			<section class="page__content content">
 				<div class="content__container">
@@ -685,7 +685,7 @@
 	</div>
 
 
-	<script src="js/app.min.js?_v=20220427000315"></script>
+	<script src="js/app.min.js?_v=20220427160858"></script>
 </body>
 
 </html>
