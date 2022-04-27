@@ -1159,26 +1159,34 @@ a.email {
   }
 }
 @media only screen and (max-width: 1023.98px) {
-  .header__menu {
+  .header__menu-wrapper {
     position: fixed;
     z-index: 2;
     left: 0;
     top: 0;
-    padding: 50px 0 0;
-    width: 282px;
-    height: 100%;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease 0s;
-    overflow-y: auto;
-    overflow-x: hidden;
+    bottom: 0;
+    right: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
-  .menu-open .header__menu {
-    transform: translateX(0);
+  .menu-open .header__menu-wrapper {
+    visibility: visible;
+    pointer-events: auto;
   }
 }
 @media only screen and (min-width: 1023.98px) {
-  .header__menu {
+  .header__menu-wrapper {
     grid-area: menu;
+    display: flex;
+    justify-content: end;
+  }
+  ._header-scroll .header__menu-wrapper {
+    justify-content: flex-start;
+  }
+}
+@media only screen and (min-width: 1919.98px) {
+  ._header-scroll .header__menu-wrapper {
+    margin-left: 81px;
   }
 }
 @media only screen and (min-width: 1023.98px) {
@@ -1226,6 +1234,46 @@ a.email {
   ._header-scroll .header__right {
     display: block;
   }
+}
+.header__call-back {
+  display: none;
+}
+@media only screen and (min-width: 1023.98px) {
+  .header__call-back {
+    display: block;
+    margin-left: 12px;
+    align-self: center;
+  }
+  .dark .header__call-back a {
+    color: #fff;
+    border-color: #fff;
+  }
+  ._header-scroll .header__call-back {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1365.98px) {
+  .header__call-back {
+    margin-left: 97px;
+  }
+}
+.header__menu-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transition: visibility 0.8s ease 0s;
+  visibility: hidden;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+}
+.menu-open .header__menu-background {
+  opacity: 0.15;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .logo-header__link {
@@ -1927,6 +1975,7 @@ a.email {
   flex-direction: row-reverse;
   position: relative;
   right: -5px;
+  gap: 8px;
 }
 .button-contacts-header__mobile::before {
   font-size: 5px;
@@ -2186,7 +2235,7 @@ a.email {
   margin-bottom: 3px;
 }
 .search-menu {
-  padding: 0 25px;
+  padding: 10px 25px;
 }
 @media only screen and (min-width: 1023.98px) {
   .search-menu {
@@ -2283,30 +2332,32 @@ a.email {
   }
 }
 
-@media only screen and (min-width: 1023.98px) {
-  .menu {
-    display: flex;
-    justify-content: end;
-  }
-  ._header-scroll .menu {
-    justify-content: flex-start;
-  }
-}
-@media only screen and (min-width: 1919.98px) {
-  ._header-scroll .menu {
-    margin-left: 81px;
-  }
-}
-.menu__row {
+.menu {
   background: #fff;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   padding: 5px 0 32px;
-  position: relative;
+}
+@media only screen and (max-width: 1023.98px) {
+  .menu {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    padding: 67px 0 10px;
+    width: 282px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease 0s;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .menu-open .menu {
+    transform: translateX(0);
+  }
 }
 @media only screen and (min-width: 1023.98px) {
-  .menu__row {
+  .menu {
     box-shadow: none;
     background: transparent;
     flex-direction: row;
@@ -2314,9 +2365,12 @@ a.email {
     padding: 0;
   }
 }
+.menu__body {
+  position: relative;
+}
 @media only screen and (max-width: 1023.98px) {
   .menu__list {
-    padding: 15px 13px 8px 30px;
+    padding: 0px 13px 8px 30px;
     flex-direction: column;
   }
 }
@@ -2420,7 +2474,6 @@ a.email {
   }
 }
 .menu__item {
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2475,12 +2528,17 @@ a.email {
     background: #fff;
   }
 }
+.menu__button-sub-open {
+  padding: 16px 19px;
+}
 .menu__button-sub-open::before {
   color: #000;
-  padding: 9px 13px;
   font-size: 10px;
 }
 @media only screen and (min-width: 1023.98px) {
+  .menu__button-sub-open {
+    padding: 9px 6px 9px 13px;
+  }
   .menu__button-sub-open::before {
     color: inherit;
   }
@@ -2527,7 +2585,7 @@ a.email {
     top: 0;
     right: 0;
     height: 100%;
-    padding: 15px 13px 8px 30px;
+    padding: 0px 13px 5px 30px;
     overflow: auto;
     transform: translateX(-100%);
     transition: all 0.5s ease 0s;
@@ -2626,7 +2684,6 @@ a.email {
   padding: 8px 0;
   font-size: 16px;
   position: relative;
-  transform: translate(-17px, 0);
   color: #000;
   display: inline-flex;
   align-items: center;
@@ -2656,28 +2713,7 @@ a.email {
     padding: 5px 20px;
   }
 }
-.menu__call-back {
-  display: none;
-}
-@media only screen and (min-width: 1023.98px) {
-  .menu__call-back {
-    display: block;
-    margin-left: 12px;
-    align-self: center;
-  }
-  .dark .menu__call-back a {
-    color: #fff;
-    border-color: #fff;
-  }
-  ._header-scroll .menu__call-back {
-    display: none;
-  }
-}
-@media only screen and (min-width: 1365.98px) {
-  .menu__call-back {
-    margin-left: 97px;
-  }
-}
+
 .footer {
   background-color: #55595C;
   padding-top: 24px;
@@ -3505,9 +3541,6 @@ a.email {
 .about {
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
 }
-.about__container {
-  padding: 0;
-}
 .about__row {
   max-width: 1554px;
   display: flex;
@@ -3895,6 +3928,7 @@ a.email {
 }
 .breadcrumbs-header-page {
   display: inline-flex;
+  flex-wrap: wrap;
 }
 .breadcrumbs-header-page__item {
   display: inline-flex;
