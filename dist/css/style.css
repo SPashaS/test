@@ -702,8 +702,14 @@ h6:not(:last-child) {
   color: #fff;
   opacity: 0;
 }
+.checkbox__text {
+  color: #8B8B8B;
+  line-height: 1.46;
+  font-size: 13px;
+}
 .checkbox__text a {
   text-decoration-line: underline;
+  color: #8B8B8B;
 }
 
 body::after {
@@ -870,6 +876,7 @@ body.popup-show::after {
 .form-popup__item input {
   height: 60px;
   width: 100%;
+  font-size: 17px;
 }
 @media only screen and (min-width: 1023.98px) {
   .form-popup__item input {
@@ -880,6 +887,7 @@ body.popup-show::after {
   resize: none;
   padding: 20px 25px;
   height: 130px;
+  font-size: 17px;
 }
 .form-popup__item label {
   font-size: 0;
@@ -927,6 +935,10 @@ body.popup-show::after {
   .button-popup:hover {
     background-color: #44769c;
   }
+}
+
+#contact .form-popup__agreement {
+  max-width: 452px;
 }
 
 [class*=-ibg] {
@@ -978,20 +990,9 @@ body.popup-show::after {
   display: inline-block;
   position: relative;
 }
-.phone-number::after {
-  position: absolute;
-  content: "";
-  left: 0;
-  right: 0;
-  height: 2px;
-  bottom: 2px;
-  background: #7099B9;
-  width: 0;
-  transition: all 0.3s ease 0s;
-}
 @media (any-hover: hover) {
-  .phone-number:hover::after {
-    width: 100%;
+  .phone-number:hover {
+    opacity: 0.8;
   }
 }
 
@@ -1932,6 +1933,10 @@ a.email {
   .dark .name-header__download-price {
     color: #fff;
   }
+  .dark .name-header__download-price:hover {
+    color: #fff;
+    opacity: 0.6;
+  }
 }
 @media only screen and (min-width: 1365.98px) {
   .name-header__download-price {
@@ -2023,14 +2028,34 @@ a.email {
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .center-header__item_social-list .social-list .social-list__item_telegram:hover {
+    background: #0088CC;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .center-header__item_social-list .social-list .social-list__item_viber:hover {
+    background: #8F5DB7;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
+    background: #25D366;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .center-header__item_social-list .social-list .social-list__item_email:hover {
+    background: #7F9D87;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .center-header__item_social-list .social-list .social-list__item:hover {
     opacity: 1;
   }
   .center-header__item_social-list .social-list .social-list__item:hover svg {
-    fill: #FBC13B;
+    fill: #fff;
   }
   .center-header__item_social-list .social-list .social-list__item:hover::before {
-    color: #FBC13B;
+    color: #fff;
   }
 }
 @media only screen and (min-width: 1023.98px) {
@@ -2050,44 +2075,70 @@ a.email {
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
-  .dark .center-header__item_social-list .social-list .social-list__item:hover {
-    opacity: 1;
-    border: 1px solid #FBC13B;
-    background: transparent;
+  .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover {
+    border: 1px solid #0088CC;
   }
-  .dark .center-header__item_social-list .social-list .social-list__item:hover svg {
-    fill: #FBC13B;
+  .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover::before {
+    color: #0088CC;
   }
-  .dark .center-header__item_social-list .social-list .social-list__item:hover::before {
-    color: #FBC13B;
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark .center-header__item_social-list .social-list .social-list__item_viber:hover {
+    border: 1px solid #8F5DB7;
+  }
+  .dark .center-header__item_social-list .social-list .social-list__item_viber:hover::before {
+    color: #8F5DB7;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
+    border: 1px solid #25D366;
+  }
+  .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover::before {
+    color: #25D366;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark .center-header__item_social-list .social-list .social-list__item_email:hover {
+    border: 1px solid #7F9D87;
+  }
+  .dark .center-header__item_social-list .social-list .social-list__item_email:hover::before {
+    color: #7F9D87;
   }
 }
 @media only screen and (min-width: 1023.98px) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item {
     background: #EDEEE9;
-    border: 0;
-    transition: all 0.3s ease 0s;
-  }
-  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item svg, .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item::before {
-    transition: all 0.3s ease 0s;
-  }
-  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item svg {
-    fill: #55595C;
+    border: 1px solid #EDEEE9;
   }
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item::before {
     color: #55595C;
+    transition: all 0.3s ease 0s;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
-  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover {
-    opacity: 1;
-    background: #FBC13B;
-  }
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover::before {
     color: #fff;
   }
-  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item:hover svg {
-    fill: #fff;
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_telegram:hover {
+    background: #0088CC;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_viber:hover {
+    background: #8F5DB7;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
+    background: #25D366;
+  }
+}
+@media only screen and (min-width: 1023.98px) and (any-hover: hover) {
+  .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_email:hover {
+    background: #7F9D87;
   }
 }
 @media only screen and (min-width: 1365.98px) {
@@ -2125,15 +2176,12 @@ a.email {
   .center-header__item_location {
     flex: 0 1 240px;
   }
-  .center-header__item_location .center-header__item-body::before {
-    transform: translateY(-8px);
-  }
 }
 .center-header__item-body {
   display: flex;
-  align-items: center;
 }
 .center-header__item-body::before {
+  padding-top: 10px;
   margin-right: 10px;
   font-size: 21px;
   color: #BEC2C5;
@@ -2244,6 +2292,10 @@ a.email {
 .dark .contacts-header__contacts-block .contacts-block__call {
   color: #fff;
 }
+.dark .contacts-header__contacts-block .contacts-block__call:hover {
+  color: #fff;
+  opacity: 0.6;
+}
 .dark ._header-scroll .contacts-header__contacts-block .contacts-block__call {
   color: #55595C;
 }
@@ -2258,6 +2310,10 @@ a.email {
 }
 .dark .contacts-header__contacts-block .contacts-block__email {
   color: #fff;
+}
+.dark .contacts-header__contacts-block .contacts-block__email:hover {
+  color: #fff;
+  opacity: 0.6;
 }
 .button-contacts-header {
   padding: 10px 3px;
@@ -2529,8 +2585,7 @@ a.email {
   margin-bottom: 12;
 }
 .item-spoiler-contacts__social-list {
-  margin-bottom: -3px;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
 }
 .search-menu {
   padding: 10px 25px;
@@ -2582,7 +2637,6 @@ a.email {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.1s ease 0s;
     transform: translateY(-50%);
   }
   .popup-open .form-search {
@@ -2604,8 +2658,12 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) {
   .form-search__input {
-    padding: 0 45px 0 15px;
+    padding: 0 45px 0 22px;
     height: 52px;
+    font-size: 16px;
+    color: #1F1F1F;
+  }
+  .form-search__input::placeholder {
     color: #828282;
   }
   .dark .form-search__input {
@@ -2909,14 +2967,12 @@ a.email {
     transition: all 0.5s ease 0s;
     visibility: hidden;
     opacity: 0;
-    pointer-events: none;
   }
   .menu__sub-list._open {
     z-index: 5;
     transform: translateX(0);
     visibility: visible;
     opacity: 1;
-    pointer-events: auto;
   }
 }
 .menu__sub-list .menu__back-sub {
@@ -2943,14 +2999,12 @@ a.email {
     padding: 20px 0;
     visibility: hidden;
     opacity: 0;
-    pointer-events: none;
-    transition: all 0.2s ease 0s;
+    transition: all 0.5s ease 0s;
   }
   .menu__sub-list._open {
     visibility: visible;
     opacity: 1;
     transform: translate(-2px, -52px);
-    pointer-events: auto;
   }
   .menu__sub-list._left {
     left: auto;
