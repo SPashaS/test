@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20220427175213">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220429191228">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,16 +17,9 @@
 		<header class="header">
 			<div class="header__container">
 				<div class="header__mobile mobile-header">
-					<div class="mobile-header__burger-wrapper">
-						<button type="button" class="mobile-header__burger icon-menu"><span></span></button>
-						<!-- <button type="button" class="mobile-header__burger icon-menu">
-					<svg width="19" height="15" viewBox="0 0 19 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M18.2376 0H0.675466C0.496321 0 0.324514 0.0790178 0.197839 0.21967C0.0711649 0.360322 0 0.551088 0 0.75C0 0.948912 0.0711649 1.13968 0.197839 1.28033C0.324514 1.42098 0.496321 1.5 0.675466 1.5H18.2376C18.4167 1.5 18.5885 1.42098 18.7152 1.28033C18.8419 1.13968 18.913 0.948912 18.913 0.75C18.913 0.551088 18.8419 0.360322 18.7152 0.21967C18.5885 0.0790178 18.4167 0 18.2376 0Z" fill="white"/>
-						<path d="M0.675466 8.25H9.45652C9.63567 8.25 9.80748 8.17098 9.93415 8.03033C10.0608 7.88968 10.132 7.69891 10.132 7.5C10.132 7.30109 10.0608 7.11032 9.93415 6.96967C9.80748 6.82902 9.63567 6.75 9.45652 6.75H0.675466C0.496321 6.75 0.324514 6.82902 0.197839 6.96967C0.0711649 7.11032 0 7.30109 0 7.5C0 7.69891 0.0711649 7.88968 0.197839 8.03033C0.324514 8.17098 0.496321 8.25 0.675466 8.25Z" fill="white"/>
-						<path d="M15.5357 13.5H0.675466C0.496321 13.5 0.324514 13.579 0.197839 13.7197C0.0711649 13.8603 0 14.0511 0 14.25C0 14.4489 0.0711649 14.6397 0.197839 14.7803C0.324514 14.921 0.496321 15 0.675466 15H15.5357C15.7149 15 15.8867 14.921 16.0133 14.7803C16.14 14.6397 16.2112 14.4489 16.2112 14.25C16.2112 14.0511 16.14 13.8603 16.0133 13.7197C15.8867 13.579 15.7149 13.5 15.5357 13.5Z" fill="white"/>
-					</svg>
-				</button> -->
-						<div class="mobile-header__burger-label">МЕНЮ</div>
+					<div class="mobile-header__burger burger">
+						<div class="burger__button icon-menu"><span class="burger__wrapper"><span></span></span></div>
+						<div class="burger__label">МЕНЮ</div>
 					</div>
 					<a href="#" class="mobile-header__logo">mash.by</a>
 					<div class="mobile-header__contacts contacts-button-mobile"></div>
@@ -41,75 +34,74 @@
 										<a href="#" class="menu__link">О компании</a>
 										<ul class="menu__sub-list">
 											<li class="menu__item">
-												<a href="#" class="menu__link">О компании - 1</a>
+												<a href="#1" class="menu__link">О компании - 1</a>
 											</li>
 											<li class="menu__item">
-												<a href="#" class="menu__link">О компании - 1</a>
+												<a href="#2" class="menu__link">О компании - 1</a>
 												<ul class="menu__sub-list">
 													<li class="menu__item">
-														<a href="#" class="menu__link">О компании - 2</a>
+														<a href="#1" class="menu__link">О компании - 2</a>
 													</li>
 													<li class="menu__item">
-														<a href="#" class="menu__link">О компании - 2</a>
+														<a href="#2" class="menu__link">О компании - 2</a>
 													</li>
 													<li class="menu__item">
-														<a href="#" class="menu__link">О компании - 2</a>
+														<a href="#3" class="menu__link">О компании - 2</a>
 													</li>
 													<li class="menu__item">
-														<a href="#" class="menu__link">О компании - 2</a>
+														<a href="#4" class="menu__link">О компании - 2</a>
 														<ul class="menu__sub-list">
 															<li class="menu__item">
-																<a href="#" class="menu__link">О компании - 3</a>
+																<a href="#1" class="menu__link">О компании - 3</a>
 																<ul class="menu__sub-list">
 																	<li class="menu__item">
-																		<a href="#" class="menu__link">О компании - 4</a>
+																		<a href="#1" class="menu__link">О компании - 4</a>
 																	</li>
 																	<li class="menu__item">
-																		<a href="#" class="menu__link">О компании - 4</a>
+																		<a href="#2" class="menu__link">О компании - 4</a>
 																	</li>
 																	<li class="menu__item">
-																		<a href="#" class="menu__link">О компании - 4</a>
+																		<a href="#3" class="menu__link">О компании - 4</a>
 																	</li>
 																	<li class="menu__item">
-																		<a href="#" class="menu__link">О компании - 4</a>
+																		<a href="#4" class="menu__link">О компании - 4</a>
 																		<ul class="menu__sub-list">
 																			<li class="menu__item">
 																				<a href="#" class="menu__link">О компании - 5</a>
 																			</li>
 																			<li class="menu__item">
-																				<a href="#" class="menu__link">О компании - 5</a>
+																				<a href="#1" class="menu__link">О компании - 5</a>
 																			</li>
 																			<li class="menu__item">
-																				<a href="#" class="menu__link">О компании - 5</a>
+																				<a href="#2" class="menu__link">О компании - 5</a>
 																			</li>
 																			<li class="menu__item">
-																				<a href="#" class="menu__link">О компании - 5</a>
+																				<a href="#3" class="menu__link">О компании - 5</a>
 																			</li>
 																		</ul>
 																	</li>
 																</ul>
 															</li>
 															<li class="menu__item">
-																<a href="#" class="menu__link">О компании - 3</a>
+																<a href="#2" class="menu__link">О компании - 3</a>
 															</li>
 															<li class="menu__item">
-																<a href="#" class="menu__link">О компании - 3</a>
+																<a href="#3" class="menu__link">О компании - 3</a>
 															</li>
 															<li class="menu__item">
-																<a href="#" class="menu__link">О компании - 3</a>
+																<a href="#4" class="menu__link">О компании - 3</a>
 															</li>
 														</ul>
 													</li>
 												</ul>
 											</li>
 											<li class="menu__item">
-												<a href="#" class="menu__link">О компании - 1</a>
+												<a href="#2" class="menu__link">О компании - 1</a>
 											</li>
 											<li class="menu__item">
-												<a href="#" class="menu__link">О компании - 1</a>
+												<a href="#3" class="menu__link">О компании - 1</a>
 											</li>
 										</ul>
-
 									</li>
 									<li class="menu__item"><a href="#" class="menu__link">Доставка</a></li>
 									<li class="menu__item"><a href="#" class="menu__link">Отзывы</a></li>
@@ -117,16 +109,16 @@
 									<li class="menu__item"><a href="#" class="menu__link">Статьи</a></li>
 									<li class="menu__item"><a href="#" class="menu__link">Контакты</a>
 										<ul class="menu__sub-list">
-											<li class="menu__item"><a href="#" class="menu__link">Контакты -1</a></li>
-											<li class="menu__item"><a href="#" class="menu__link">Контакты -1</a>
+											<li class="menu__item"><a href="#1" class="menu__link">Контакты -1</a></li>
+											<li class="menu__item"><a href="#2" class="menu__link">Контакты -1</a>
 												<ul class="menu__sub-list">
-													<li class="menu__item"><a href="#" class="menu__link">Контакты -2</a></li>
-													<li class="menu__item"><a href="#" class="menu__link">Контакты -2</a></li>
-													<li class="menu__item"><a href="#" class="menu__link">Контакты -2</a>
+													<li class="menu__item"><a href="#1" class="menu__link">Контакты -2</a></li>
+													<li class="menu__item"><a href="#2" class="menu__link">Контакты -2</a></li>
+													<li class="menu__item"><a href="#3" class="menu__link">Контакты -2</a>
 														<ul class="menu__sub-list">
-															<li class="menu__item"><a href="#" class="menu__link">Контакты -3</a></li>
-															<li class="menu__item"><a href="#" class="menu__link">Контакты -3</a></li>
-															<li class="menu__item"><a href="#" class="menu__link">Контакты -3</a></li>
+															<li class="menu__item"><a href="#1" class="menu__link">Контакты -3</a></li>
+															<li class="menu__item"><a href="#2" class="menu__link">Контакты -3</a></li>
+															<li class="menu__item"><a href="#3" class="menu__link">Контакты -3</a></li>
 														</ul>
 
 													</li>
@@ -139,13 +131,16 @@
 									</li>
 								</ul>
 							</nav>
-							<div class="menu__search search-menu">
-								<form action="#" class="search-menu__form form-search">
-									<input class="form-search__input" autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="поиск по сайту">
-									<button type="submit" class="form-search__button _icon-search"></button>
-								</form>
-								<button type="button" class="search-menu__icon _icon-search">
-								</button>
+							<div class="menu__search-wrapper">
+								<div class="menu__search search-menu">
+									<form action="#" class="search-menu__form form-search">
+										<input class="form-search__input" autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="поиск по сайту">
+										<button type="submit" class="form-search__button _icon-search"></button>
+									</form>
+									<button type="button" class="search-menu__icon _icon-search">
+									</button>
+									<div class="menu__search-background"></div>
+								</div>
 							</div>
 						</div>
 						<div class="header__call-back">
@@ -224,113 +219,119 @@
 						</div>
 					</div>
 				</div>
-				<div class="header__contacts contacts">
-					<div class="contacts__numbers numbers-contacts">
-						<div class="numbers-contacts__item">
-							<div class="numbers-contacts__title">Центральный офис</div>
-							<a href="tel:88009898989" class="numbers-contacts__number phone-number">8 (800) 989-89-89</a>
-							<div class="numbers-contacts__shedule">
-								с 8:00 до 19:00 по всей России
-							</div>
-						</div>
-						<div class="numbers-contacts__item">
-							<div class="numbers-contacts__title">Мобильный телефон/факс</div>
-							<a href="tel:79958880808" class="numbers-contacts__number phone-number">+7 (995) 888-08-08 </a>
-							<div class="numbers-contacts__shedule">
-								круглосуточно
-							</div>
-						</div>
-					</div>
-					<div class="contacts__social-list social-list">
-						<a href="#" class="social-list__item social-list__item_yandex _icon-yandex"></a>
-						<a href="#" class="social-list__item social-list__item_instagram _icon-instagram"></a>
-						<a href="#" class="social-list__item social-list__item_ok _icon-ok"></a>
-						<a href="#" class="social-list__item social-list__item_youtube _icon-youtube"></a>
-						<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
-						<a href="#" class="social-list__item social-list__item_vk _icon-vk "></a>
-						<a href="#" class="social-list__item social-list__item_facebook _icon-facebook"></a>
-						<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
-						<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
-					</div>
-					<a href="mailto:info@metmash.ru" class="contacts__email email">info@metmash.ru</a>
-					<div class="contacts__spoiler spoiler-contacts">
-						<div class="spoiler-contacts__title">Наши контакты:</div>
-						<div class="spoiler-contacts__list" data-one-spoller data-spollers>
-							<div class="spoiler-contacts__item">
-								<div class="item-spoiler-contacts">
-									<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел продаж</span></div>
-									<div class="item-spoiler-contacts__body">
-										<p class="item-spoiler-contacts__location">
-											115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
-										</p>
-										<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
-										<div class="item-spoiler-contacts__social-list social-list">
-											<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
-											<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
-											<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
-											<a href="#" class="social-list__item social-list__item_email _icon-email"></a>
-										</div>
-										<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
-									</div>
+
+				<div class="header__contacts-wrapper">
+					<div class="header__contacts contacts">
+
+						<div class="contacts__numbers numbers-contacts">
+							<div class="numbers-contacts__item">
+								<div class="numbers-contacts__title">Центральный офис</div>
+								<a href="tel:88009898989" class="numbers-contacts__number phone-number">8 (800) 989-89-89</a>
+								<div class="numbers-contacts__shedule">
+									с 8:00 до 19:00 по всей России
 								</div>
 							</div>
-							<div class="spoiler-contacts__item">
-								<div class="item-spoiler-contacts">
-									<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел снабжения</span></div>
-									<div class="item-spoiler-contacts__body">
-										<p class="item-spoiler-contacts__location">
-											115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
-										</p>
-										<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
-										<div class="item-spoiler-contacts__social-list social-list">
-											<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
-											<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
-											<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
-											<a href="#" class="social-list__item social-list__item_email _icon-email"></a>
-										</div>
-										<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
-									</div>
-								</div>
-							</div>
-							<div class="spoiler-contacts__item">
-								<div class="item-spoiler-contacts">
-									<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел работы по гарантийному обслуживанию</span></div>
-									<div class="item-spoiler-contacts__body">
-										<p class="item-spoiler-contacts__location">
-											115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
-										</p>
-										<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
-										<div class="item-spoiler-contacts__social-list social-list">
-											<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
-											<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
-										</div>
-										<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
-									</div>
-								</div>
-							</div>
-							<div class="spoiler-contacts__item">
-								<div class="item-spoiler-contacts">
-									<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Московский филиал</span></div>
-									<div class="item-spoiler-contacts__body">
-										<p class="item-spoiler-contacts__location">
-											115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
-										</p>
-										<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
-										<div class="item-spoiler-contacts__social-list social-list">
-											<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
-											<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
-											<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
-										</div>
-									</div>
+							<div class="numbers-contacts__item">
+								<div class="numbers-contacts__title">Мобильный телефон/факс</div>
+								<a href="tel:79958880808" class="numbers-contacts__number phone-number">+7 (995) 888-08-08 </a>
+								<div class="numbers-contacts__shedule">
+									круглосуточно
 								</div>
 							</div>
 						</div>
+						<div class="contacts__social-list social-list">
+							<a href="#" class="social-list__item social-list__item_yandex _icon-yandex"></a>
+							<a href="#" class="social-list__item social-list__item_instagram _icon-instagram"></a>
+							<a href="#" class="social-list__item social-list__item_ok _icon-ok"></a>
+							<a href="#" class="social-list__item social-list__item_youtube _icon-youtube"></a>
+							<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
+							<a href="#" class="social-list__item social-list__item_vk _icon-vk "></a>
+							<a href="#" class="social-list__item social-list__item_facebook _icon-facebook"></a>
+							<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
+							<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
+						</div>
+						<a href="mailto:info@metmash.ru" class="contacts__email email">info@metmash.ru</a>
+						<div class="contacts__spoiler spoiler-contacts">
+							<div class="spoiler-contacts__title">Наши контакты:</div>
+							<div class="spoiler-contacts__list" data-one-spoller data-spollers>
+								<div class="spoiler-contacts__item">
+									<div class="item-spoiler-contacts">
+										<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел продаж</span></div>
+										<div class="item-spoiler-contacts__body">
+											<p class="item-spoiler-contacts__location">
+												115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
+											</p>
+											<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
+											<div class="item-spoiler-contacts__social-list social-list">
+												<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
+												<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
+												<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
+												<a href="#" class="social-list__item social-list__item_email _icon-email"></a>
+											</div>
+											<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
+										</div>
+									</div>
+								</div>
+								<div class="spoiler-contacts__item">
+									<div class="item-spoiler-contacts">
+										<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел снабжения</span></div>
+										<div class="item-spoiler-contacts__body">
+											<p class="item-spoiler-contacts__location">
+												115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
+											</p>
+											<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
+											<div class="item-spoiler-contacts__social-list social-list">
+												<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
+												<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
+												<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
+												<a href="#" class="social-list__item social-list__item_email _icon-email"></a>
+											</div>
+											<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
+										</div>
+									</div>
+								</div>
+								<div class="spoiler-contacts__item">
+									<div class="item-spoiler-contacts">
+										<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Отдел работы по гарантийному обслуживанию</span></div>
+										<div class="item-spoiler-contacts__body">
+											<p class="item-spoiler-contacts__location">
+												115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
+											</p>
+											<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
+											<div class="item-spoiler-contacts__social-list social-list">
+												<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
+												<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
+											</div>
+											<a href="mailto:msk@metmash.ru" class="item-spoiler-contacts__email email">msk@metmash.ru</a>
+										</div>
+									</div>
+								</div>
+								<div class="spoiler-contacts__item">
+									<div class="item-spoiler-contacts">
+										<div class="item-spoiler-contacts__title _icon-arrow-r" data-spoller><span>Московский филиал</span></div>
+										<div class="item-spoiler-contacts__body">
+											<p class="item-spoiler-contacts__location">
+												115193, г. Москва, ул. Петра Романова, д. 7, стр. 1, мансарда No0, пом. XXI, комн.1, оф.1
+											</p>
+											<a href="tel:79958880808 " class="item-spoiler-contacts__number phone-number">+7 (995) 888-08-08 </a>
+											<div class="item-spoiler-contacts__social-list social-list">
+												<a href="#" class="social-list__item social-list__item_viber _icon-viber"></a>
+												<a href="#" class="social-list__item social-list__item_whatsapp _icon-whatsapp"></a>
+												<a href="#" class="social-list__item social-list__item_telegram _icon-telegram"></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a href="#" data-popup="#callback" class="contacts__call-back call-back call-back_blue">Обратный звонок</a>
+						<p class="contacts__text">
+							Наши сотрудники будут рады ответить на ваше обращение или лично проконсультировать Вас в офисах продаж
+						</p>
 					</div>
-					<a href="#" data-popup="#callback" class="contacts__call-back call-back call-back_blue">Обратный звонок</a>
-					<p class="contacts__text">
-						Наши сотрудники будут рады ответить на ваше обращение или лично проконсультировать Вас в офисах продаж
-					</p>
+					<div class="header__contacts-background"></div>
 				</div>
+
 			</div>
 			<div class="header__background">
 				<picture><source srcset="img/main-slider/01.webp" type="image/webp"><img src="img/main-slider/01.jpg" alt="Фон"></picture>
@@ -398,7 +399,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="main-slider__dotts"></div>
+					<div class="main-slider__dotts slider-dotts"></div>
 				</div>
 				<div class="main-slider__controls controls-main-slider">
 					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_prev"><img src="img/icons/arrow-slider.svg" alt="Arrow"></button>
@@ -457,154 +458,155 @@
 			</div>
 			<section class="page__content content">
 				<div class="content__container">
-					<h1 class="content__title title">Отрасли деятельности H1</h1>
-					<div class="content__body">
-						<p class="content__text">
+					<article class="content__article article-page">
+						<h1 class="article-page__title">Отрасли деятельности H1</h1>
+						<p>
 							Наша компания предлагает только качественный металлопрокат. Мы дорожим своей репутацией, поэтому
 							некондиционный товар или товар 2-го сорта – мы не закупаем и не продаем. Мы сотрудничаем только
 							с проверенными заводами – изготовителями. На всю продукцию имеются заводские сертификаты
 							качества, которые мы можем Вам предоставить по Вашему желанию.
 						</p>
-						<p class="content__text">
+						<p>
 							Наша компания предлагает только качественный металлопрокат. Мы дорожим своей репутацией, поэтому
 							некондиционный товар или товар 2-го сорта – мы не закупаем и не продаем. Мы сотрудничаем только
 							с проверенными заводами – изготовителями. На всю продукцию имеются заводские сертификаты
 							качества, которые мы можем Вам предоставить по Вашему желанию.
 						</p>
-						<p class="content__text">
+						<p>
 							Наша компания предлагает только качественный металлопрокат. Мы дорожим своей репутацией, поэтому
 							некондиционный товар или товар 2-го сорта – мы не закупаем и не продаем. Мы сотрудничаем только
 							с проверенными заводами – изготовителями. На всю продукцию имеются заводские сертификаты
 							качества, которые мы можем Вам предоставить по Вашему желанию.
 						</p>
-						<div class="content__images">
-							<div class="content__image">
-								<div class="content__image-ibg">
+						<div class="article-page__images">
+							<div class="article-page__image">
+								<div class="article-page__image-ibg">
 									<picture><source srcset="img/content/01.webp" type="image/webp"><img src="img/content/01.jpg" alt="Картинка" title="Производство"></picture>
 								</div>
 							</div>
-							<div class="content__image">
-								<div class="content__image-ibg">
+							<div class="article-page__image">
+								<div class="article-page__image-ibg">
 									<picture><source srcset="img/content/02.webp" type="image/webp"><img src="img/content/02.jpg" alt="Картинка" title="Производство"></picture>
 								</div>
 							</div>
 
 						</div>
-						<p class="content__text">
+						<p>
 							Наша компания предлагает только качественный металлопрокат. Мы дорожим своей репутацией, поэтому
 							некондиционный товар или товар 2-го сорта – мы не закупаем и не продаем. Мы сотрудничаем только
 							с проверенными заводами – изготовителями. На всю продукцию имеются заводские сертификаты
 							качества, которые мы можем Вам предоставить по Вашему желанию.
 						</p>
-					</div>
+					</article>
 				</div>
-			</section>
-		</main>
-		<footer class="footer">
-			<div class="footer__container">
-				<div class="footer__top">
-					<div class="footer__menu menu-footer">
-						<div class="menu-footer__column" data-spollers="767.98,max">
-							<button type="button" class="menu-footer__title _icon-arrow-b" data-spoller>
-								<span>Компания</span>
-							</button>
+	</div>
+	</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__container">
+			<div class="footer__top">
+				<div class="footer__menu menu-footer">
+					<div class="menu-footer__column" data-spollers="767.98,max">
+						<button type="button" class="menu-footer__title _icon-arrow-b" data-spoller>
+							<span>Компания</span>
+						</button>
+						<ul class="menu-footer__list">
+							<li><a href="#" class="menu-footer__link">Главная</a></li>
+							<li><a href="#" class="menu-footer__link">О компании</a></li>
+							<li><a href="#" class="menu-footer__link">Доставка</a></li>
+							<li><a href="#" class="menu-footer__link">Отзывы</a></li>
+							<li><a href="#" class="menu-footer__link">Как сделать заказ</a></li>
+							<li><a href="#" class="menu-footer__link">Статьи</a></li>
+							<li><a href="#" class="menu-footer__link">Контакты</a></li>
+						</ul>
+					</div>
+					<div class="menu-footer__column" data-spollers="768.98,max">
+						<button type="button" class="menu-footer__title _icon-arrow-b" data-spoller>
+							<span>Услуги</span>
+						</button>
+						<div class="menu-footer__row">
 							<ul class="menu-footer__list">
-								<li><a href="#" class="menu-footer__link">Главная</a></li>
-								<li><a href="#" class="menu-footer__link">О компании</a></li>
-								<li><a href="#" class="menu-footer__link">Доставка</a></li>
-								<li><a href="#" class="menu-footer__link">Отзывы</a></li>
-								<li><a href="#" class="menu-footer__link">Как сделать заказ</a></li>
-								<li><a href="#" class="menu-footer__link">Статьи</a></li>
-								<li><a href="#" class="menu-footer__link">Контакты</a></li>
+								<li><a href="#" class="menu-footer__link">Плазменная резка стали</a></li>
+								<li><a href="#" class="menu-footer__link">Металлоконструкции</a></li>
+								<li><a href="#" class="menu-footer__link">Производство дверей</a></li>
+								<li><a href="#" class="menu-footer__link">Окна под заказ</a></li>
+								<li><a href="#" class="menu-footer__link">Балконные рамы</a></li>
+								<li><a href="#" class="menu-footer__link">Подоконники из металлопластика</a></li>
+								<li><a href="#" class="menu-footer__link">Краскопульты</a></li>
+							</ul>
+							<ul class="menu-footer__list">
+								<li><a href="#" class="menu-footer__link">Замена подшипников</a></li>
+								<li><a href="#" class="menu-footer__link">Изготовление откосов</a></li>
+								<li><a href="#" class="menu-footer__link">Автомобильные камеры покраски</a></li>
 							</ul>
 						</div>
-						<div class="menu-footer__column" data-spollers="768.98,max">
-							<button type="button" class="menu-footer__title _icon-arrow-b" data-spoller>
-								<span>Услуги</span>
-							</button>
-							<div class="menu-footer__row">
-								<ul class="menu-footer__list">
-									<li><a href="#" class="menu-footer__link">Плазменная резка стали</a></li>
-									<li><a href="#" class="menu-footer__link">Металлоконструкции</a></li>
-									<li><a href="#" class="menu-footer__link">Производство дверей</a></li>
-									<li><a href="#" class="menu-footer__link">Окна под заказ</a></li>
-									<li><a href="#" class="menu-footer__link">Балконные рамы</a></li>
-									<li><a href="#" class="menu-footer__link">Подоконники из металлопластика</a></li>
-									<li><a href="#" class="menu-footer__link">Краскопульты</a></li>
-								</ul>
-								<ul class="menu-footer__list">
-									<li><a href="#" class="menu-footer__link">Замена подшипников</a></li>
-									<li><a href="#" class="menu-footer__link">Изготовление откосов</a></li>
-									<li><a href="#" class="menu-footer__link">Автомобильные камеры покраски</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="footer__contacts contacts-footer">
-						<div class="contacts-footer__contacts contacts-block">
-							<div class="contacts-block__body">
-								<div class="contacts-block__text">
-									Бесплатный звонок по РФ —
-								</div>
-								<a href="tel:88009898989" class="contacts-block__call">8 (800) 989-89-89</a>
-								<a href="mailto:info@metall.ru" class="contacts-block__email">info@metall.ru</a>
-							</div>
-						</div>
-						<div class="contacts-footer__item">
-							<p class="contacts-footer__item-text contacts-footer__item-text_location">
-								103339, Московская область, Химкинский р-н, а/п Шереметьево-1, к.7
-							</p>
-						</div>
-						<div class="contacts-footer__item">
-							<p class="contacts-footer__item-text contacts-footer__item-text_schedule">
-								контакт-центр с 8:00 до 19:00
-							</p>
-						</div>
-						<div class="contacts-footer__item">
-							<div class="social-list">
-								<a href="#" class="social-list__item _icon-viber"></a>
-								<a href="#" class="social-list__item _icon-whatsapp"></a>
-								<a href="#" class="social-list__item _icon-telegram"></a>
-								<a href="#" class="social-list__item _icon-email"></a>
-							</div>
-						</div>
 					</div>
 				</div>
-				<div class="footer__bottom bottom-footer">
-					<div class="bottom-footer__row">
-						<div class="bottom-footer__copy copy-footer">
-							<p class="copy-footer__title">2007-2022 © ЧТУП Метмаш</p>
-							<a href="#" class="copy-footer__link">Политика конфиденциальности</a>
-							<a href="#" class="copy-footer__link">Условия возврата</a>
+				<div class="footer__contacts contacts-footer">
+					<div class="contacts-footer__contacts contacts-block">
+						<div class="contacts-block__body">
+							<div class="contacts-block__text">
+								Бесплатный звонок по РФ —
+							</div>
+							<a href="tel:88009898989" class="contacts-block__call">8 (800) 989-89-89</a>
+							<a href="mailto:info@metall.ru" class="contacts-block__email">info@metall.ru</a>
 						</div>
-						<div class="bottom-footer__pay pay-footer">
-							<picture><source srcset="img/footer/mir.webp" type="image/webp"><img src="img/footer/mir.png" alt="МИР" class="pay-footer__image pay-footer__image_mir"></picture>
-							<picture><source srcset="img/footer/visa.webp" type="image/webp"><img src="img/footer/visa.png" alt="Visa" class="pay-footer__image pay-footer_visa"></picture>
-							<picture><source srcset="img/footer/mastercard.webp" type="image/webp"><img src="img/footer/mastercard.png" alt="Mastercard" class="pay-footer__image pay-footer__image_mc"></picture>
-						</div>
-						<p class="bottom-footer__agreement">
-							Заполняя любую форму обратной связи на данном сайте, вы соглашаетесь с политикой конфиденциальности.
-							Также вы можете ознакомиться с правилами возврата товара.
-							Сайт не является публичной офертой, информация размещена в ознакомительных целях.
+					</div>
+					<div class="contacts-footer__item">
+						<p class="contacts-footer__item-text contacts-footer__item-text_location">
+							103339, Московская область,<br> Химкинский р-н, а/п<br> Шереметьево-1, к.7
 						</p>
 					</div>
-					<div class="bottom-footer__info info-footer">
-						<div class="info-footer__statistics">
-							<a href="#" class="info-footer__themetoggle themetoggle">
-								<span class="themetoggle__item themetoggle__item_dark _icon-dark-theme">Dark theme</span>
-								<span class="themetoggle__item themetoggle__item_light _icon-light-theme">Light theme</span>
-							</a>
-							<div class="info-footer__counter"><picture><source srcset="img/footer/statistics.webp" type="image/webp"><img src="img/footer/statistics.jpg" alt="Счетчик"></picture></div>
-							<div class="info-footer__counter"><picture><source srcset="img/footer/statistics.webp" type="image/webp"><img src="img/footer/statistics.jpg" alt="Счетчик"></picture></div>
-						</div>
-						<div class="info-footer__promotion">
-							<span class="_icon-settings">Комплексное продвижение</span>
-							<a href="#">Moytop</a>
+					<div class="contacts-footer__item">
+						<p class="contacts-footer__item-text contacts-footer__item-text_schedule">
+							контакт-центр<br>с 8:00 до 19:00
+						</p>
+					</div>
+					<div class="contacts-footer__item">
+						<div class="social-list">
+							<a href="#" class="social-list__item _icon-viber"></a>
+							<a href="#" class="social-list__item _icon-whatsapp"></a>
+							<a href="#" class="social-list__item _icon-telegram"></a>
+							<a href="#" class="social-list__item _icon-email"></a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</footer>
+			<div class="footer__bottom bottom-footer">
+				<div class="bottom-footer__row">
+					<div class="bottom-footer__copy copy-footer">
+						<p class="copy-footer__title">2007-2022 © ЧТУП Метмаш</p>
+						<a href="#" class="copy-footer__link">Политика конфиденциальности</a>
+						<a href="#" class="copy-footer__link">Условия возврата</a>
+					</div>
+					<div class="bottom-footer__pay pay-footer">
+						<picture><source srcset="img/footer/mir.webp" type="image/webp"><img src="img/footer/mir.png" alt="МИР" class="pay-footer__image pay-footer__image_mir"></picture>
+						<picture><source srcset="img/footer/visa.webp" type="image/webp"><img src="img/footer/visa.png" alt="Visa" class="pay-footer__image pay-footer_visa"></picture>
+						<picture><source srcset="img/footer/mastercard.webp" type="image/webp"><img src="img/footer/mastercard.png" alt="Mastercard" class="pay-footer__image pay-footer__image_mc"></picture>
+					</div>
+					<p class="bottom-footer__agreement">
+						Заполняя любую форму обратной связи на данном сайте, вы соглашаетесь с политикой конфиденциальности.
+						Также вы можете ознакомиться с правилами возврата товара.<br>
+						Сайт не является публичной офертой, информация размещена в ознакомительных целях.
+					</p>
+				</div>
+				<div class="bottom-footer__info info-footer">
+					<div class="info-footer__statistics">
+						<a href="#" class="info-footer__themetoggle themetoggle">
+							<span class="themetoggle__item themetoggle__item_dark _icon-dark-theme">Dark theme</span>
+							<span class="themetoggle__item themetoggle__item_light _icon-light-theme">Light theme</span>
+						</a>
+						<div class="info-footer__counter"><picture><source srcset="img/footer/statistics.webp" type="image/webp"><img src="img/footer/statistics.jpg" alt="Счетчик"></picture></div>
+						<div class="info-footer__counter"><picture><source srcset="img/footer/statistics.webp" type="image/webp"><img src="img/footer/statistics.jpg" alt="Счетчик"></picture></div>
+					</div>
+					<div class="info-footer__promotion">
+						<span class="_icon-settings">Комплексное продвижение</span>
+						<a href="#">Moytop</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 	</div>
 	<div id="callback" aria-hidden="true" class="popup">
 		<div class="popup__wrapper">
@@ -685,7 +687,7 @@
 	</div>
 
 
-	<script src="js/app.min.js?_v=20220427175213"></script>
+	<script src="js/app.min.js?_v=20220429191228"></script>
 </body>
 
 </html>
