@@ -2963,6 +2963,7 @@ a.email {
   }
   .menu__more > .menu__list > .menu__item {
     padding: 0 23px 0 35px;
+    margin-right: 0;
   }
   .menu__more > .menu__list > .menu__item::after {
     display: none;
@@ -2998,6 +2999,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) {
   .menu__more > .menu__list > .menu__item > .menu__sub-list {
+    width: 300px;
     left: auto;
     right: 100%;
     transform: translate(2px, -52px);
