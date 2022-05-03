@@ -365,11 +365,6 @@
   content: "\e919";
 }
 
-.r {
-  color: #2f6e9e;
-  color: #242627;
-}
-
 * {
   padding: 0px;
   margin: 0px;
@@ -2136,18 +2131,14 @@ a.email {
     background: transparent;
     transition: all 0.3s ease 0s;
   }
-  .dark .center-header__item_social-list .social-list .social-list__item svg, .dark .center-header__item_social-list .social-list .social-list__item::before {
-    transition: all 0.3s ease 0s;
-  }
-  .dark .center-header__item_social-list .social-list .social-list__item svg {
-    fill: #DAD2C7;
-  }
   .dark .center-header__item_social-list .social-list .social-list__item::before {
+    transition: all 0.3s ease 0s;
     color: #DAD2C7;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover {
+    background: transparent;
     border: 1px solid #0088CC;
   }
   .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover::before {
@@ -2156,6 +2147,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_viber:hover {
+    background: transparent;
     border: 1px solid #8F5DB7;
   }
   .dark .center-header__item_social-list .social-list .social-list__item_viber:hover::before {
@@ -2164,6 +2156,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
+    background: transparent;
     border: 1px solid #25D366;
   }
   .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover::before {
@@ -2172,6 +2165,7 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_email:hover {
+    background: transparent;
     border: 1px solid #7F9D87;
   }
   .dark .center-header__item_social-list .social-list .social-list__item_email:hover::before {
