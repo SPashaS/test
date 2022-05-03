@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="stylesheet" href="css/style.min.css?_v=20220502180438">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220503203514">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -281,8 +281,8 @@
 							</div>
 						</div>
 						<div class="right-header__language language-header">
-							<a href="#" class="language-header__item language-header__item_active">РУС</a>
-							<a href="#" class="language-header__item">EN</a>
+							<div data-language="ru" class="language-header__item language-header__item_active">РУС</div>
+							<div data-language="en" class="language-header__item">EN</div>
 						</div>
 					</div>
 				</div>
@@ -401,14 +401,14 @@
 
 			</div>
 			<div class="header__background">
-				<picture><source data-srcset="img/main-slider/01-light.webp" type="image/webp"><img data-src="img/main-slider/01-light.jpg" alt="Фон"></picture>
+				<picture><source data-srcset="img/main-slider/01-light.webp" type="image/webp"><img data-src="img/main-slider/01-light.jpg" alt="Фон" title="background"></picture>
 			</div>
 
 		</header>
 		<main class="page">
 			<section class="page__main-slider main-slider">
 				<div class="main-slider__slider">
-					<div class="main-slider__swiper" style="display: flex;">
+					<div class="main-slider__swiper">
 						<div class="main-slider__slide">
 							<div class="slide-main-slider slide-main-slider-ibg">
 								<picture><source data-srcset="img/main-slider/01-light.webp" type="image/webp"><img data-src="img/main-slider/01-light.jpg" class="swiper-lazy" alt="Image" title="Картинка"></picture>
@@ -422,7 +422,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 						</div>
 						<div class="main-slider__slide">
 							<div class=" slide-main-slider slide-main-slider-ibg">
@@ -437,7 +436,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 						</div>
 						<div class="main-slider__slide">
 							<div class=" slide-main-slider slide-main-slider-ibg">
@@ -452,14 +450,13 @@
 									</div>
 								</div>
 							</div>
-							<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
 						</div>
 					</div>
 					<div class="main-slider__dotts slider-dotts"></div>
 				</div>
 				<div class="main-slider__controls controls-main-slider">
-					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_prev"><img src="img/icons/arrow-slider.svg" alt="Arrow"></button>
-					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_next"><img src="img/icons/arrow-slider.svg" alt="Arrow"></button>
+					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_prev _icon-arrows-slider-prev"></button>
+					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_next _icon-arrows-slider"></button>
 				</div>
 			</section>
 			<div class="page__about about">
@@ -743,7 +740,7 @@
 	</div>
 
 
-	<script src="js/app.min.js?_v=20220502180438"></script>
+	<script src="js/app.min.js?_v=20220503203514"></script>
 </body>
 
 </html>
