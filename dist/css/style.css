@@ -1379,7 +1379,7 @@ a.email {
   .header {
     min-height: 187px;
     background-color: #fff;
-    padding: 34px 0 19px;
+    padding: 30px 0 19px;
     position: relative;
     top: 0;
     left: 0;
@@ -1450,10 +1450,11 @@ a.email {
     row-gap: 16px;
   }
   ._header-scroll .header__body {
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 180px 1fr auto;
     grid-template-rows: auto;
-    grid-template-areas: "center menu";
+    grid-template-areas: "center menu right";
     padding: 13px 0;
+    align-items: center;
   }
 }
 @media only screen and (min-width: 1365.98px) {
@@ -1471,7 +1472,6 @@ a.email {
   ._header-scroll .header__body {
     grid-template-columns: 350px 1fr auto;
     grid-template-areas: "center menu right";
-    align-items: center;
   }
 }
 @media only screen and (max-width: 1023.98px) {
@@ -1550,7 +1550,7 @@ a.email {
     display: none;
   }
 }
-@media only screen and (min-width: 1919.98px) {
+@media only screen and (min-width: 1365.98px) {
   ._header-scroll .header__right {
     display: block;
   }
@@ -2084,13 +2084,8 @@ a.email {
   .center-header__item_social-list .social-list .social-list__item {
     background: #EDEEE9;
   }
-  .center-header__item_social-list .social-list .social-list__item svg, .center-header__item_social-list .social-list .social-list__item::before {
-    transition: all 0.3s ease 0s;
-  }
-  .center-header__item_social-list .social-list .social-list__item svg {
-    fill: #55595C;
-  }
   .center-header__item_social-list .social-list .social-list__item::before {
+    transition: all 0.3s ease 0s;
     color: #55595C;
   }
 }
@@ -2138,38 +2133,26 @@ a.email {
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover {
-    background: transparent;
+    background: #0088CC;
     border: 1px solid #0088CC;
-  }
-  .dark .center-header__item_social-list .social-list .social-list__item_telegram:hover::before {
-    color: #0088CC;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_viber:hover {
-    background: transparent;
+    background: #8F5DB7;
     border: 1px solid #8F5DB7;
-  }
-  .dark .center-header__item_social-list .social-list .social-list__item_viber:hover::before {
-    color: #8F5DB7;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
-    background: transparent;
+    background: #25D366;
     border: 1px solid #25D366;
-  }
-  .dark .center-header__item_social-list .social-list .social-list__item_whatsapp:hover::before {
-    color: #25D366;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark .center-header__item_social-list .social-list .social-list__item_email:hover {
-    background: transparent;
+    background: #7F9D87;
     border: 1px solid #7F9D87;
-  }
-  .dark .center-header__item_social-list .social-list .social-list__item_email:hover::before {
-    color: #7F9D87;
   }
 }
 @media only screen and (min-width: 1023.98px) {
@@ -2190,21 +2173,25 @@ a.email {
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_telegram:hover {
     background: #0088CC;
+    border: 1px solid #0088CC;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_viber:hover {
     background: #8F5DB7;
+    border: 1px solid #8F5DB7;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_whatsapp:hover {
     background: #25D366;
+    border: 1px solid #25D366;
   }
 }
 @media only screen and (min-width: 1023.98px) and (any-hover: hover) {
   .dark ._header-scroll .center-header__item_social-list .social-list .social-list__item_email:hover {
     background: #7F9D87;
+    border: 1px solid #7F9D87;
   }
 }
 @media only screen and (min-width: 1365.98px) {
@@ -2541,7 +2528,6 @@ a.email {
     visibility: hidden;
     pointer-events: none;
     opacity: 0;
-    transition: all 0.3s ease 0s;
   }
   .contacts-open .contacts {
     visibility: visible;
@@ -2666,9 +2652,6 @@ a.email {
   padding: 10px 25px;
 }
 @media only screen and (min-width: 1023.98px) {
-  .search-menu {
-    padding: 0;
-  }
   .search-menu._active .form-search {
     width: 100%;
     visibility: visible;
@@ -3622,22 +3605,38 @@ a.email {
 .contacts-footer__item {
   text-align: center;
 }
-.contacts-footer__item .social-list > .social-list__item svg {
-  fill: #55595C;
+.contacts-footer__item .social-list > .social-list__item {
+  background: #EDEEE9;
 }
 .contacts-footer__item .social-list > .social-list__item::before {
   color: #55595C;
 }
 @media (any-hover: hover) {
   .contacts-footer__item .social-list > .social-list__item:hover {
-    background: #fff;
     opacity: 1;
   }
-  .contacts-footer__item .social-list > .social-list__item:hover svg {
-    fill: #FBC13B;
-  }
   .contacts-footer__item .social-list > .social-list__item:hover::before {
-    color: #FBC13B;
+    color: #fff;
+  }
+}
+@media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item_telegram:hover {
+    background: #0088CC;
+  }
+}
+@media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item_viber:hover {
+    background: #8F5DB7;
+  }
+}
+@media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item_whatsapp:hover {
+    background: #25D366;
+  }
+}
+@media (any-hover: hover) {
+  .contacts-footer__item .social-list > .social-list__item_email:hover {
+    background: #7F9D87;
   }
 }
 @media only screen and (min-width: 767.98px) {
