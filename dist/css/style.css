@@ -2683,6 +2683,9 @@ a.email {
   font-size: 13px;
   display: inline-block;
   border-radius: 8px;
+  color: #1F1F1F;
+}
+.form-search__input::placeholder {
   color: #BEC2C5;
 }
 @media only screen and (min-width: 1023.98px) {
@@ -2690,7 +2693,6 @@ a.email {
     padding: 0 45px 0 22px;
     height: 52px;
     font-size: 16px;
-    color: #1F1F1F;
   }
   .form-search__input::placeholder {
     color: #828282;
@@ -2742,7 +2744,7 @@ a.email {
     top: 0;
     padding: 67px 0 10px;
     width: 282px;
-    height: 90%;
+    height: 65%;
     background: #fff;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
     transform: translateX(-100%);

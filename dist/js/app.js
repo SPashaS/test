@@ -504,16 +504,10 @@ data-spollers="768,min" - спойлеры будут работать толь�
     if (iconMenu) {
       iconMenu.addEventListener("click", function (e) {
         if (bodyLockStatus) {
-          if (document.querySelector(".contacts-open")) {
-            document.documentElement.classList.add("menu-open");
-            // bodyUnlock();
-          } else {
-            // bodyLockToggle();
-            document.documentElement.classList.toggle("menu-open");
-          }
+          bodyLockToggle();
+          document.documentElement.classList.toggle("menu-open");
         }
       });
-      // document.querySelector('.menu__body').onmouseleave = menuClose;
     }
   }
 
@@ -17928,6 +17922,7 @@ EffectFade, Lazy, Manipulation
 
     if (!its_menu && !its_btnMenu && !its_search && menu_is_active) {
       document.documentElement.classList.toggle("menu-open");
+      bodyUnlock();
     }
   }); // CONCATENATED MODULE: ./src/js/app.js
   /*
