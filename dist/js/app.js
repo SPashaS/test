@@ -765,8 +765,858 @@ data-showmore-button="скорость"
         return mdQueriesArray;
       }
     }
-  } // CONCATENATED MODULE: ./node_modules/ssr-window/ssr-window.esm.js
+  } // CONCATENATED MODULE: ./src/js/libs/popup.js
   //================================================================================================================================================================================================================================================================================================================
+  // Модуль попапов
+  // (c) Фрилансер по жизни, Хмурый Кот
+  // Документация по работе в шаблоне:
+  // data-popup - Атрибут для кнопки, которая вызывает попап
+  // data-close - Атрибут для кнопки, которая закрывает попап
+  // data-youtube - Атрибут для кода youtube
+  // Сниппет (HTML): pl
+
+  // Подключение функционала "Чертогов Фрилансера"
+
+  // Класс Popup
+  class Popup {
+    constructor(options) {
+      let config = {
+        logging: true,
+        init: true,
+        // Для кнопок
+        attributeOpenButton: "data-popup", // Атрибут для кнопки, которая вызывает попап
+        attributeCloseButton: "data-close", // Атрибут для кнопки, которая закрывает попап
+        // Для сторонних объектов
+        fixElementSelector: "[data-lp]", // Атрибут для элементов с левым паддингом (которые fixed)
+        // Для объекта попапа
+        youtubeAttribute: "data-youtube", // Атрибут для кода youtube
+        youtubePlaceAttribute: "data-youtube-place", // Атрибут для вставки ролика youtube
+        setAutoplayYoutube: true,
+        // Изменение классов
+        classes: {
+          popup: "popup",
+          // popupWrapper: 'popup__wrapper',
+          popupContent: "popup__content",
+          popupActive: "popup_show", // Добавляется для попапа, когда он открывается
+          bodyActive: "popup-show", // Добавляется для боди, когда попап открыт
+        },
+        focusCatch: true, // Фокус внутри попапа зациклен
+        closeEsc: true, // Закрытие по ESC
+        bodyLock: true, // Блокировка скролла
+        bodyLockDelay: 500, // Задержка блокировки скролла
+
+        hashSettings: {
+          location: true, // Хэш в адресной строке
+          goHash: true, // Переход по наличию в адресной строке
+        },
+        on: {
+          // События
+          beforeOpen: function () {},
+          afterOpen: function () {},
+          beforeClose: function () {},
+          afterClose: function () {},
+        },
+      };
+      this.isOpen = false;
+      // Текущее окно
+      this.targetOpen = {
+        selector: false,
+        element: false,
+      };
+      // Предыдущее открытое
+      this.previousOpen = {
+        selector: false,
+        element: false,
+      };
+      // Последнее закрытое
+      this.lastClosed = {
+        selector: false,
+        element: false,
+      };
+      this._dataValue = false;
+      this.hash = false;
+
+      this._reopen = false;
+      this._selectorOpen = false;
+
+      this.lastFocusEl = false;
+      this._focusEl = [
+        "a[href]",
+        'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
+        "button:not([disabled]):not([aria-hidden])",
+        "select:not([disabled]):not([aria-hidden])",
+        "textarea:not([disabled]):not([aria-hidden])",
+        "area[href]",
+        "iframe",
+        "object",
+        "embed",
+        "[contenteditable]",
+        '[tabindex]:not([tabindex^="-"])',
+      ];
+      //this.options = Object.assign(config, options);
+      this.options = {
+        ...config,
+        ...options,
+        classes: {
+          ...config.classes,
+          ...options?.classes,
+        },
+        hashSettings: {
+          ...config.hashSettings,
+          ...options?.hashSettings,
+        },
+        on: {
+          ...config.on,
+          ...options?.on,
+        },
+      };
+      this.options.init ? this.initPopups() : null;
+    }
+    initPopups() {
+      this.popupLogging(`Проснулся`);
+      this.eventsPopup();
+    }
+    eventsPopup() {
+      // Клик на всем документе
+      document.addEventListener(
+        "click",
+        function (e) {
+          // Клик по кнопке "открыть"
+          const buttonOpen = e.target.closest(
+            `[${this.options.attributeOpenButton}]`
+          );
+          if (buttonOpen) {
+            e.preventDefault();
+            this._dataValue = buttonOpen.getAttribute(
+              this.options.attributeOpenButton
+            )
+              ? buttonOpen.getAttribute(this.options.attributeOpenButton)
+              : "error";
+            if (this._dataValue !== "error") {
+              if (!this.isOpen) this.lastFocusEl = buttonOpen;
+              this.targetOpen.selector = `${this._dataValue}`;
+              this._selectorOpen = true;
+              this.open();
+              return;
+            } else
+              this.popupLogging(
+                `Ой ой, не заполнен атрибут у ${buttonOpen.classList}`
+              );
+
+            return;
+          }
+          // Закрытие на пустом месте (popup__wrapper) и кнопки закрытия (popup__close) для закрытия
+          const buttonClose = e.target.closest(
+            `[${this.options.attributeCloseButton}]`
+          );
+          if (
+            buttonClose ||
+            (!e.target.closest(`.${this.options.classes.popupContent}`) &&
+              this.isOpen)
+          ) {
+            e.preventDefault();
+            this.close();
+            return;
+          }
+        }.bind(this)
+      );
+      // Закрытие по ESC
+      document.addEventListener(
+        "keydown",
+        function (e) {
+          if (
+            this.options.closeEsc &&
+            e.which == 27 &&
+            e.code === "Escape" &&
+            this.isOpen
+          ) {
+            e.preventDefault();
+            this.close();
+            return;
+          }
+          if (this.options.focusCatch && e.which == 9 && this.isOpen) {
+            this._focusCatch(e);
+            return;
+          }
+        }.bind(this)
+      );
+
+      // Открытие по хешу
+      if (this.options.hashSettings.goHash) {
+        // Проверка изменения адресной строки
+        window.addEventListener(
+          "hashchange",
+          function () {
+            if (window.location.hash) {
+              this._openToHash();
+            } else {
+              this.close(this.targetOpen.selector);
+            }
+          }.bind(this)
+        );
+
+        window.addEventListener(
+          "load",
+          function () {
+            if (window.location.hash) {
+              this._openToHash();
+            }
+          }.bind(this)
+        );
+      }
+    }
+    open(selectorValue) {
+      // Если ввести значение селектора (селектор настраивается в options)
+      if (
+        selectorValue &&
+        typeof selectorValue === "string" &&
+        selectorValue.trim() !== ""
+      ) {
+        this.targetOpen.selector = selectorValue;
+        this._selectorOpen = true;
+      }
+      if (this.isOpen) {
+        this._reopen = true;
+        this.close();
+      }
+      if (!this._selectorOpen)
+        this.targetOpen.selector = this.lastClosed.selector;
+      if (!this._reopen) this.previousActiveElement = document.activeElement;
+
+      this.targetOpen.element = document.querySelector(
+        this.targetOpen.selector
+      );
+
+      if (this.targetOpen.element) {
+        // YouTube
+        if (
+          this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)
+        ) {
+          const codeVideo = this.targetOpen.element.getAttribute(
+            this.options.youtubeAttribute
+          );
+
+          const urlVideo = `https://www.youtube.com/embed/${codeVideo}?rel=0&showinfo=0&autoplay=1`;
+
+          const iframe = document.createElement("iframe");
+          iframe.setAttribute("allowfullscreen", "");
+
+          const autoplay = this.options.setAutoplayYoutube ? "autoplay;" : "";
+          iframe.setAttribute("allow", `${autoplay}; encrypted-media`);
+
+          iframe.setAttribute("src", urlVideo);
+
+          if (
+            this.targetOpen.element.querySelector(
+              `[${this.options.youtubePlaceAttribute}]`
+            )
+          )
+            this.targetOpen.element
+              .querySelector(`[${this.options.youtubePlaceAttribute}]`)
+              .appendChild(iframe);
+        }
+        if (this.options.hashSettings.location) {
+          // Получение хэша и его выставление
+          this._getHash();
+          this._setHash();
+        }
+
+        // До открытия
+        this.options.on.beforeOpen(this);
+
+        this.targetOpen.element.classList.add(this.options.classes.popupActive);
+        document.body.classList.add(this.options.classes.bodyActive);
+
+        if (!this._reopen) bodyLockToggle();
+        else this._reopen = false;
+
+        this.targetOpen.element.setAttribute("aria-hidden", "false");
+
+        // // Запоминаю это открытое окно. Оно будет последним открытым
+        this.previousOpen.selector = this.targetOpen.selector;
+        this.previousOpen.element = this.targetOpen.element;
+
+        this._selectorOpen = false;
+
+        this.isOpen = true;
+
+        setTimeout(() => {
+          this._focusTrap();
+        }, 50);
+
+        // После открытия
+        //this.options.on.afterOpen(this);
+
+        // Создаем свое событие после открытия попапа
+        document.dispatchEvent(
+          new CustomEvent("afterPopupOpen", {
+            detail: {
+              popup: this,
+            },
+          })
+        );
+        this.popupLogging(`Открыл попап`);
+      } else
+        this.popupLogging(
+          `Ой ой, такого попапа нет. Проверьте корректность ввода. `
+        );
+    }
+    close(selectorValue) {
+      if (
+        selectorValue &&
+        typeof selectorValue === "string" &&
+        selectorValue.trim() !== ""
+      ) {
+        this.previousOpen.selector = selectorValue;
+      }
+      if (!this.isOpen || !bodyLockStatus) {
+        return;
+      }
+      // До закрытия
+      this.options.on.beforeClose(this);
+      // YouTube
+      if (this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)) {
+        if (
+          this.targetOpen.element.querySelector(
+            `[${this.options.youtubePlaceAttribute}]`
+          )
+        )
+          this.targetOpen.element.querySelector(
+            `[${this.options.youtubePlaceAttribute}]`
+          ).innerHTML = "";
+      }
+      this.previousOpen.element.classList.remove(
+        this.options.classes.popupActive
+      );
+      // aria-hidden
+      this.previousOpen.element.setAttribute("aria-hidden", "true");
+      if (!this._reopen) {
+        document.body.classList.remove(this.options.classes.bodyActive);
+        bodyLockToggle();
+        // bodyLock();
+        this.isOpen = false;
+      }
+      // Очищение адресной строки
+      this._removeHash();
+      if (this._selectorOpen) {
+        this.lastClosed.selector = this.previousOpen.selector;
+        this.lastClosed.element = this.previousOpen.element;
+      }
+      // После закрытия
+      this.options.on.afterClose(this);
+      setTimeout(() => {
+        this._focusTrap();
+      }, 50);
+
+      this.popupLogging(`Закрыл попап`);
+    }
+    // Получение хэша
+    _getHash() {
+      if (this.options.hashSettings.location) {
+        this.hash = this.targetOpen.selector.includes("#")
+          ? this.targetOpen.selector
+          : this.targetOpen.selector.replace(".", "#");
+      }
+    }
+    _openToHash() {
+      let classInHash = document.querySelector(
+        `.${window.location.hash.replace("#", "")}`
+      )
+        ? `.${window.location.hash.replace("#", "")}`
+        : document.querySelector(`${window.location.hash}`)
+        ? `${window.location.hash}`
+        : null;
+
+      const buttons = document.querySelector(
+        `[${this.options.attributeOpenButton}="${classInHash}"]`
+      );
+      if (buttons) {
+        if (classInHash) this.open(classInHash);
+      }
+    }
+    // Утсановка хэша
+    _setHash() {
+      history.pushState("", "", this.hash);
+    }
+    _removeHash() {
+      history.pushState("", "", window.location.href.split("#")[0]);
+    }
+    _focusCatch(e) {
+      const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
+      const focusArray = Array.prototype.slice.call(focusable);
+      const focusedIndex = focusArray.indexOf(document.activeElement);
+
+      if (e.shiftKey && focusedIndex === 0) {
+        focusArray[focusArray.length - 1].focus();
+        e.preventDefault();
+      }
+      if (!e.shiftKey && focusedIndex === focusArray.length - 1) {
+        focusArray[0].focus();
+        e.preventDefault();
+      }
+    }
+    _focusTrap() {
+      const focusable = this.previousOpen.element.querySelectorAll(
+        this._focusEl
+      );
+      if (!this.isOpen && this.lastFocusEl) {
+        this.lastFocusEl.focus();
+      } else {
+        focusable[0].focus();
+      }
+    }
+    // Функция вывода в консоль
+    popupLogging(message) {
+      this.options.logging ? functions_FLS(`[Попапос]: ${message}`) : null;
+    }
+  }
+  // Запускаем и добавляем в объект модулей
+  modules_flsModules.popup = new Popup({}); // CONCATENATED MODULE: ./src/js/files/scroll/gotoblock.js
+  // Подключение функционала "Чертогов Фрилансера"
+
+  // Подключение дополнения для увеличения возможностей
+  // Документация: https://github.com/cferdinandi/smooth-scroll
+  // import SmoothScroll from 'smooth-scroll';
+  //==============================================================================================================================================================================================================================================================================================================================
+
+  // Модуль плавной проктутки к блоку
+  let gotoblock_gotoBlock = (
+    targetBlock,
+    noHeader = false,
+    speed = 500,
+    offset = 0
+  ) => {
+    const targetBlockElement =
+      typeof targetBlock === "string"
+        ? document.querySelector(targetBlock)
+        : targetBlock;
+    if (targetBlockElement) {
+      let headerItem = "";
+      let headerItemHeight = 0;
+      if (noHeader) {
+        headerItem = "header.header";
+        headerItemHeight = document.querySelector(headerItem).offsetHeight;
+      }
+      let options = {
+        speedAsDuration: true,
+        speed: speed,
+        header: headerItem,
+        offset: offset,
+        easing: "easeOutQuad",
+      };
+      // Закрываем меню, если оно открыто
+      document.documentElement.classList.contains("menu-open")
+        ? menuClose()
+        : null;
+
+      if (typeof SmoothScroll !== "undefined") {
+        // Прокрутка с использованием дополнения
+        new SmoothScroll().animateScroll(targetBlockElement, "", options);
+      } else {
+        // Прокрутка стандартными средствами
+        let targetBlockElementPosition =
+          targetBlockElement.getBoundingClientRect().top + scrollY;
+        window.scrollTo({
+          top: headerItemHeight
+            ? targetBlockElementPosition - headerItemHeight
+            : targetBlockElementPosition,
+          behavior: "smooth",
+        });
+      }
+      FLS(`[gotoBlock]: Юхуу...едем к ${targetBlock}`);
+    } else {
+      FLS(`[gotoBlock]: Ой ой..Такого блока нет на странице: ${targetBlock}`);
+    }
+  }; // CONCATENATED MODULE: ./src/js/files/forms/forms.js
+  // Подключение функционала "Чертогов Фрилансера"
+  // Подключение списка активных модулей
+
+  // Вспомогательные функции
+
+  // Модуль прокрутки к блоку
+
+  //================================================================================================================================================================================================================================================================================================================================
+
+  /*
+Чтобы поле участвовало в валидации добавляем атрибут data-required
+Особые проверки:
+data-required="email" - вадидация E-mail
+
+Чтобы поле валидировалось при потере фокуса, 
+к атрибуту data-required добавляем атрибут data-validate
+
+Чтобы вывести текст ошибки, нужно указать его в атрибуте data-error
+
+data-popup-message - указываем селектор попапа который нужно показать после отправки формы (режимы data-ajax или data-dev) ! необходимо подключить функционал попапов в app.js
+data-ajax - отправляем данные формы AJAX запросом по адресу указанному в action методом указанным в method
+data-dev - режим разработчика - эмитируем отправку формы
+data-goto-error - прокрутить страницу к ошибке
+*/
+
+  // Работа с полями формы. Добавление классов, работа с placeholder
+  function formFieldsInit() {
+    const formFields = document.querySelectorAll(
+      "input[placeholder],textarea[placeholder]"
+    );
+    if (formFields.length) {
+      formFields.forEach((formField) => {
+        formField.dataset.placeholder = formField.placeholder;
+      });
+    }
+    document.body.addEventListener("focusin", function (e) {
+      const targetElement = e.target;
+      if (
+        targetElement.tagName === "INPUT" ||
+        targetElement.tagName === "TEXTAREA"
+      ) {
+        if (targetElement.dataset.placeholder) {
+          targetElement.placeholder = "";
+        }
+        targetElement.classList.add("_form-focus");
+        targetElement.parentElement.classList.add("_form-focus");
+
+        formValidate.removeError(targetElement);
+      }
+    });
+    document.body.addEventListener("focusout", function (e) {
+      const targetElement = e.target;
+      if (
+        targetElement.tagName === "INPUT" ||
+        targetElement.tagName === "TEXTAREA"
+      ) {
+        if (targetElement.dataset.placeholder) {
+          targetElement.placeholder = targetElement.dataset.placeholder;
+        }
+        targetElement.classList.remove("_form-focus");
+        targetElement.parentElement.classList.remove("_form-focus");
+
+        // Моментальная валидация
+        if (targetElement.hasAttribute("data-validate")) {
+          formValidate.validateInput(targetElement);
+        }
+      }
+    });
+  }
+  // Валидация форм
+  let formValidate = {
+    getErrors(form) {
+      let error = 0;
+      let formRequiredItems = form.querySelectorAll("*[data-required]");
+      if (formRequiredItems.length) {
+        formRequiredItems.forEach((formRequiredItem) => {
+          if (
+            (formRequiredItem.offsetParent !== null ||
+              formRequiredItem.tagName === "SELECT") &&
+            !formRequiredItem.disabled
+          ) {
+            error += this.validateInput(formRequiredItem);
+          }
+        });
+      }
+      return error;
+    },
+    validateInput(formRequiredItem) {
+      let error = 0;
+      if (formRequiredItem.dataset.required === "email") {
+        formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+        if (this.emailTest(formRequiredItem)) {
+          this.addError(formRequiredItem);
+          error++;
+        } else {
+          this.removeError(formRequiredItem);
+        }
+      } else if (
+        formRequiredItem.type === "checkbox" &&
+        !formRequiredItem.checked
+      ) {
+        this.addError(formRequiredItem);
+        error++;
+      } else {
+        if (!formRequiredItem.value) {
+          this.addError(formRequiredItem);
+          error++;
+        } else {
+          this.removeError(formRequiredItem);
+        }
+      }
+      return error;
+    },
+    addError(formRequiredItem) {
+      formRequiredItem.classList.add("_form-error");
+      formRequiredItem.parentElement.classList.add("_form-error");
+      let inputError =
+        formRequiredItem.parentElement.querySelector(".form__error");
+      if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+      if (formRequiredItem.dataset.error) {
+        formRequiredItem.parentElement.insertAdjacentHTML(
+          "beforeend",
+          `<div class="form__error">${formRequiredItem.dataset.error}</div>`
+        );
+      }
+    },
+    removeError(formRequiredItem) {
+      formRequiredItem.classList.remove("_form-error");
+      formRequiredItem.parentElement.classList.remove("_form-error");
+      if (formRequiredItem.parentElement.querySelector(".form__error")) {
+        formRequiredItem.parentElement.removeChild(
+          formRequiredItem.parentElement.querySelector(".form__error")
+        );
+      }
+    },
+    formClean(form) {
+      form.reset();
+      setTimeout(() => {
+        let inputs = form.querySelectorAll("input,textarea");
+        for (let index = 0; index < inputs.length; index++) {
+          const el = inputs[index];
+          el.parentElement.classList.remove("_form-focus");
+          el.classList.remove("_form-focus");
+          formValidate.removeError(el);
+        }
+        let checkboxes = form.querySelectorAll(".checkbox__input");
+        if (checkboxes.length > 0) {
+          for (let index = 0; index < checkboxes.length; index++) {
+            const checkbox = checkboxes[index];
+            checkbox.checked = false;
+          }
+        }
+        if (modules_flsModules.select) {
+          let selects = form.querySelectorAll(".select");
+          if (selects.length) {
+            for (let index = 0; index < selects.length; index++) {
+              const select = selects[index].querySelector("select");
+              modules_flsModules.select.selectBuild(select);
+            }
+          }
+        }
+      }, 0);
+    },
+    emailTest(formRequiredItem) {
+      return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(
+        formRequiredItem.value
+      );
+    },
+  };
+  /* Отправка форм */
+  function formSubmit(validate) {
+    if (flsModules.popup) {
+      flsModules.popup.open("some");
+    }
+    const forms = document.forms;
+    if (forms.length) {
+      for (const form of forms) {
+        form.addEventListener("submit", function (e) {
+          const form = e.target;
+          formSubmitAction(form, e);
+        });
+        form.addEventListener("reset", function (e) {
+          const form = e.target;
+          formValidate.formClean(form);
+        });
+      }
+    }
+    async function formSubmitAction(form, e) {
+      const error = validate ? formValidate.getErrors(form) : 0;
+      if (error === 0) {
+        const ajax = form.hasAttribute("data-ajax");
+        if (ajax) {
+          // Если режим ajax
+          e.preventDefault();
+          const formAction = form.getAttribute("action")
+            ? form.getAttribute("action").trim()
+            : "#";
+          const formMethod = form.getAttribute("method")
+            ? form.getAttribute("method").trim()
+            : "GET";
+          const formData = new FormData(form);
+
+          form.classList.add("_sending");
+          const response = await fetch(formAction, {
+            method: formMethod,
+            body: formData,
+          });
+          if (response.ok) {
+            let responseResult = await response.json();
+            form.classList.remove("_sending");
+            formSent(form);
+          } else {
+            alert("Ошибка");
+            form.classList.remove("_sending");
+          }
+        } else if (form.hasAttribute("data-dev")) {
+          // Если режим разработки
+          e.preventDefault();
+          formSent(form);
+        }
+      } else {
+        e.preventDefault();
+        const formError = form.querySelector("._form-error");
+        if (formError && form.hasAttribute("data-goto-error")) {
+          gotoBlock(formError, true, 1000);
+        }
+      }
+    }
+    // Действия после отправки формы
+    function formSent(form) {
+      // Создаем событие отправки формы
+      document.dispatchEvent(
+        new CustomEvent("formSent", {
+          detail: {
+            form: form,
+          },
+        })
+      );
+      // Показываем попап, если подключен модуль попапов
+      // и для формы указана настройка
+      setTimeout(() => {
+        if (flsModules.popup) {
+          const popup = form.dataset.popupMessage;
+          popup ? flsModules.popup.open(popup) : null;
+        }
+      }, 0);
+      // Очищаем форму
+      formValidate.formClean(form);
+      // Сообщаем в консоль
+      formLogging(`Форма отправлена!`);
+    }
+    function formLogging(message) {
+      FLS(`[Формы]: ${message}`);
+    }
+  }
+  /* Модуь формы "показать пароль" */
+  function formViewpass() {
+    document.addEventListener("click", function (e) {
+      let targetElement = e.target;
+      if (targetElement.closest('[class*="__viewpass"]')) {
+        let inputType = targetElement.classList.contains("active")
+          ? "password"
+          : "text";
+        targetElement.parentElement
+          .querySelector("input")
+          .setAttribute("type", inputType);
+        targetElement.classList.toggle("active");
+      }
+    });
+  }
+  /* Модуь формы "колличество" */
+  function formQuantity() {
+    document.addEventListener("click", function (e) {
+      let targetElement = e.target;
+      if (targetElement.closest(".quantity__button")) {
+        let value = parseInt(
+          targetElement.closest(".quantity").querySelector("input").value
+        );
+        if (targetElement.classList.contains("quantity__button_plus")) {
+          value++;
+        } else {
+          --value;
+          if (value < 1) value = 1;
+        }
+        targetElement.closest(".quantity").querySelector("input").value = value;
+      }
+    });
+  }
+  /* Модуь звездного рейтинга */
+  function formRating() {
+    const ratings = document.querySelectorAll(".rating");
+    if (ratings.length > 0) {
+      initRatings();
+    }
+    // Основная функция
+    function initRatings() {
+      let ratingActive, ratingValue;
+      // "Бегаем" по всем рейтингам на странице
+      for (let index = 0; index < ratings.length; index++) {
+        const rating = ratings[index];
+        initRating(rating);
+      }
+      // Инициализируем конкретный рейтинг
+      function initRating(rating) {
+        initRatingVars(rating);
+
+        setRatingActiveWidth();
+
+        if (rating.classList.contains("rating_set")) {
+          setRating(rating);
+        }
+      }
+      // Инициализайция переменных
+      function initRatingVars(rating) {
+        ratingActive = rating.querySelector(".rating__active");
+        ratingValue = rating.querySelector(".rating__value");
+      }
+      // Изменяем ширину активных звезд
+      function setRatingActiveWidth(index = ratingValue.innerHTML) {
+        const ratingActiveWidth = index / 0.05;
+        ratingActive.style.width = `${ratingActiveWidth}%`;
+      }
+      // Возможность указать оценку
+      function setRating(rating) {
+        const ratingItems = rating.querySelectorAll(".rating__item");
+        for (let index = 0; index < ratingItems.length; index++) {
+          const ratingItem = ratingItems[index];
+          ratingItem.addEventListener("mouseenter", function (e) {
+            // Обновление переменных
+            initRatingVars(rating);
+            // Обновление активных звезд
+            setRatingActiveWidth(ratingItem.value);
+          });
+          ratingItem.addEventListener("mouseleave", function (e) {
+            // Обновление активных звезд
+            setRatingActiveWidth();
+          });
+          ratingItem.addEventListener("click", function (e) {
+            // Обновление переменных
+            initRatingVars(rating);
+
+            if (rating.dataset.ajax) {
+              // "Отправить" на сервер
+              setRatingValue(ratingItem.value, rating);
+            } else {
+              // Отобразить указанную оцнку
+              ratingValue.innerHTML = index + 1;
+              setRatingActiveWidth();
+            }
+          });
+        }
+      }
+      async function setRatingValue(value, rating) {
+        if (!rating.classList.contains("rating_sending")) {
+          rating.classList.add("rating_sending");
+
+          // Отправика данных (value) на сервер
+          let response = await fetch("rating.json", {
+            method: "GET",
+
+            //body: JSON.stringify({
+            //	userRating: value
+            //}),
+            //headers: {
+            //	'content-type': 'application/json'
+            //}
+          });
+          if (response.ok) {
+            const result = await response.json();
+
+            // Получаем новый рейтинг
+            const newRating = result.newRating;
+
+            // Вывод нового среднего результата
+            ratingValue.innerHTML = newRating;
+
+            // Обновление активных звезд
+            setRatingActiveWidth();
+
+            rating.classList.remove("rating_sending");
+          } else {
+            alert("Ошибка");
+
+            rating.classList.remove("rating_sending");
+          }
+        }
+      }
+    }
+  } // CONCATENATED MODULE: ./node_modules/ssr-window/ssr-window.esm.js
   /**
    * SSR Window 4.0.2
    * Better handling for window object in SSR environment
@@ -6300,7 +7150,7 @@ data-showmore-button="скорость"
   };
   const extendedDefaults = {};
 
-  class core_Swiper {
+  class Swiper {
     constructor() {
       let el;
       let params;
@@ -6333,7 +7183,7 @@ data-showmore-button="скорость"
           const newParams = utils_extend({}, params, {
             el: containerEl,
           });
-          swipers.push(new core_Swiper(newParams));
+          swipers.push(new Swiper(newParams));
         });
         return swipers;
       } // Swiper Instance
@@ -6918,9 +7768,8 @@ data-showmore-button="скорость"
     }
 
     static installModule(mod) {
-      if (!core_Swiper.prototype.__modules__)
-        core_Swiper.prototype.__modules__ = [];
-      const modules = core_Swiper.prototype.__modules__;
+      if (!Swiper.prototype.__modules__) Swiper.prototype.__modules__ = [];
+      const modules = Swiper.prototype.__modules__;
 
       if (typeof mod === "function" && modules.indexOf(mod) < 0) {
         modules.push(mod);
@@ -6929,23 +7778,22 @@ data-showmore-button="скорость"
 
     static use(module) {
       if (Array.isArray(module)) {
-        module.forEach((m) => core_Swiper.installModule(m));
-        return core_Swiper;
+        module.forEach((m) => Swiper.installModule(m));
+        return Swiper;
       }
 
-      core_Swiper.installModule(module);
-      return core_Swiper;
+      Swiper.installModule(module);
+      return Swiper;
     }
   }
 
   Object.keys(prototypes).forEach((prototypeGroup) => {
     Object.keys(prototypes[prototypeGroup]).forEach((protoMethod) => {
-      core_Swiper.prototype[protoMethod] =
-        prototypes[prototypeGroup][protoMethod];
+      Swiper.prototype[protoMethod] = prototypes[prototypeGroup][protoMethod];
     });
   });
-  core_Swiper.use([Resize, Observer]);
-  /* harmony default export */ const core = core_Swiper; // CONCATENATED MODULE: ./node_modules/swiper/modules/virtual/virtual.js
+  Swiper.use([Resize, Observer]);
+  /* harmony default export */ const core = Swiper; // CONCATENATED MODULE: ./node_modules/swiper/modules/virtual/virtual.js
   function Virtual(_ref) {
     let { swiper, extendParams, on, emit } = _ref;
     extendParams({
@@ -12726,8 +13574,6 @@ EffectFade, Lazy, Manipulation
   // Стили Swiper
   // Базовые стили
 
-  // import "../../scss/base/swiper.scss";
-
   // Полный набор стилей из scss/libs/swiper.scss
   // import "../../scss/libs/swiper.scss";
   // Полный набор стилей из node_modules
@@ -12882,895 +13728,44 @@ EffectFade, Lazy, Manipulation
     }
   }
   // Скролл на базе слайдера (по классу swiper_scroll для оболочки слайдера)
-  function initSlidersScroll() {
-    // Добавление классов слайдера
-    // при необходимости отключить
-    bildSliders();
+  // function initSlidersScroll() {
+  // 	// Добавление классов слайдера
+  // 	// при необходимости отключить
+  // 	bildSliders();
 
-    let sliderScrollItems = document.querySelectorAll(".swiper_scroll");
-    if (sliderScrollItems.length > 0) {
-      for (let index = 0; index < sliderScrollItems.length; index++) {
-        const sliderScrollItem = sliderScrollItems[index];
-        const sliderScrollBar =
-          sliderScrollItem.querySelector(".swiper-scrollbar");
-        const sliderScroll = new Swiper(sliderScrollItem, {
-          observer: true,
-          observeParents: true,
-          direction: "vertical",
-          slidesPerView: "auto",
-          freeMode: {
-            enabled: true,
-          },
-          scrollbar: {
-            el: sliderScrollBar,
-            draggable: true,
-            snapOnRelease: false,
-          },
-          mousewheel: {
-            releaseOnEdges: true,
-          },
-        });
-        sliderScroll.scrollbar.updateSize();
-      }
-    }
-  }
-  initSliders(); // CONCATENATED MODULE: ./src/js/libs/popup.js
-  // window.addEventListener("load", function (e) {
-  // 	// Запуск инициализации слайдеров
-  // 	initSliders();
-  // 	// Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
-  // 	//initSlidersScroll();
-  // });
-  // Модуль попапов
-  // (c) Фрилансер по жизни, Хмурый Кот
-  // Документация по работе в шаблоне:
-  // data-popup - Атрибут для кнопки, которая вызывает попап
-  // data-close - Атрибут для кнопки, которая закрывает попап
-  // data-youtube - Атрибут для кода youtube
-  // Сниппет (HTML): pl
+  // 	let sliderScrollItems = document.querySelectorAll('.swiper_scroll');
+  // 	if (sliderScrollItems.length > 0) {
+  // 		for (let index = 0; index < sliderScrollItems.length; index++) {
+  // 			const sliderScrollItem = sliderScrollItems[index];
+  // 			const sliderScrollBar = sliderScrollItem.querySelector('.swiper-scrollbar');
+  // 			const sliderScroll = new Swiper(sliderScrollItem, {
+  // 				observer: true,
+  // 				observeParents: true,
+  // 				direction: 'vertical',
+  // 				slidesPerView: 'auto',
+  // 				freeMode: {
+  // 					enabled: true,
+  // 				},
+  // 				scrollbar: {
+  // 					el: sliderScrollBar,
+  // 					draggable: true,
+  // 					snapOnRelease: false
+  // 				},
+  // 				mousewheel: {
+  // 					releaseOnEdges: true,
+  // 				},
+  // 			});
+  // 			sliderScroll.scrollbar.updateSize();
+  // 		}
+  // 	}
+  // }
 
-  // Подключение функционала "Чертогов Фрилансера"
-
-  // Класс Popup
-  class Popup {
-    constructor(options) {
-      let config = {
-        logging: true,
-        init: true,
-        // Для кнопок
-        attributeOpenButton: "data-popup", // Атрибут для кнопки, которая вызывает попап
-        attributeCloseButton: "data-close", // Атрибут для кнопки, которая закрывает попап
-        // Для сторонних объектов
-        fixElementSelector: "[data-lp]", // Атрибут для элементов с левым паддингом (которые fixed)
-        // Для объекта попапа
-        youtubeAttribute: "data-youtube", // Атрибут для кода youtube
-        youtubePlaceAttribute: "data-youtube-place", // Атрибут для вставки ролика youtube
-        setAutoplayYoutube: true,
-        // Изменение классов
-        classes: {
-          popup: "popup",
-          // popupWrapper: 'popup__wrapper',
-          popupContent: "popup__content",
-          popupActive: "popup_show", // Добавляется для попапа, когда он открывается
-          bodyActive: "popup-show", // Добавляется для боди, когда попап открыт
-        },
-        focusCatch: true, // Фокус внутри попапа зациклен
-        closeEsc: true, // Закрытие по ESC
-        bodyLock: true, // Блокировка скролла
-        bodyLockDelay: 500, // Задержка блокировки скролла
-
-        hashSettings: {
-          location: true, // Хэш в адресной строке
-          goHash: true, // Переход по наличию в адресной строке
-        },
-        on: {
-          // События
-          beforeOpen: function () {},
-          afterOpen: function () {},
-          beforeClose: function () {},
-          afterClose: function () {},
-        },
-      };
-      this.isOpen = false;
-      // Текущее окно
-      this.targetOpen = {
-        selector: false,
-        element: false,
-      };
-      // Предыдущее открытое
-      this.previousOpen = {
-        selector: false,
-        element: false,
-      };
-      // Последнее закрытое
-      this.lastClosed = {
-        selector: false,
-        element: false,
-      };
-      this._dataValue = false;
-      this.hash = false;
-
-      this._reopen = false;
-      this._selectorOpen = false;
-
-      this.lastFocusEl = false;
-      this._focusEl = [
-        "a[href]",
-        'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-        "button:not([disabled]):not([aria-hidden])",
-        "select:not([disabled]):not([aria-hidden])",
-        "textarea:not([disabled]):not([aria-hidden])",
-        "area[href]",
-        "iframe",
-        "object",
-        "embed",
-        "[contenteditable]",
-        '[tabindex]:not([tabindex^="-"])',
-      ];
-      //this.options = Object.assign(config, options);
-      this.options = {
-        ...config,
-        ...options,
-        classes: {
-          ...config.classes,
-          ...options?.classes,
-        },
-        hashSettings: {
-          ...config.hashSettings,
-          ...options?.hashSettings,
-        },
-        on: {
-          ...config.on,
-          ...options?.on,
-        },
-      };
-      this.options.init ? this.initPopups() : null;
-    }
-    initPopups() {
-      this.popupLogging(`Проснулся`);
-      this.eventsPopup();
-    }
-    eventsPopup() {
-      // Клик на всем документе
-      document.addEventListener(
-        "click",
-        function (e) {
-          // Клик по кнопке "открыть"
-          const buttonOpen = e.target.closest(
-            `[${this.options.attributeOpenButton}]`
-          );
-          if (buttonOpen) {
-            e.preventDefault();
-            this._dataValue = buttonOpen.getAttribute(
-              this.options.attributeOpenButton
-            )
-              ? buttonOpen.getAttribute(this.options.attributeOpenButton)
-              : "error";
-            if (this._dataValue !== "error") {
-              if (!this.isOpen) this.lastFocusEl = buttonOpen;
-              this.targetOpen.selector = `${this._dataValue}`;
-              this._selectorOpen = true;
-              this.open();
-              return;
-            } else
-              this.popupLogging(
-                `Ой ой, не заполнен атрибут у ${buttonOpen.classList}`
-              );
-
-            return;
-          }
-          // Закрытие на пустом месте (popup__wrapper) и кнопки закрытия (popup__close) для закрытия
-          const buttonClose = e.target.closest(
-            `[${this.options.attributeCloseButton}]`
-          );
-          if (
-            buttonClose ||
-            (!e.target.closest(`.${this.options.classes.popupContent}`) &&
-              this.isOpen)
-          ) {
-            e.preventDefault();
-            this.close();
-            return;
-          }
-        }.bind(this)
-      );
-      // Закрытие по ESC
-      document.addEventListener(
-        "keydown",
-        function (e) {
-          if (
-            this.options.closeEsc &&
-            e.which == 27 &&
-            e.code === "Escape" &&
-            this.isOpen
-          ) {
-            e.preventDefault();
-            this.close();
-            return;
-          }
-          if (this.options.focusCatch && e.which == 9 && this.isOpen) {
-            this._focusCatch(e);
-            return;
-          }
-        }.bind(this)
-      );
-
-      // Открытие по хешу
-      if (this.options.hashSettings.goHash) {
-        // Проверка изменения адресной строки
-        window.addEventListener(
-          "hashchange",
-          function () {
-            if (window.location.hash) {
-              this._openToHash();
-            } else {
-              this.close(this.targetOpen.selector);
-            }
-          }.bind(this)
-        );
-
-        window.addEventListener(
-          "load",
-          function () {
-            if (window.location.hash) {
-              this._openToHash();
-            }
-          }.bind(this)
-        );
-      }
-    }
-    open(selectorValue) {
-      // Если ввести значение селектора (селектор настраивается в options)
-      if (
-        selectorValue &&
-        typeof selectorValue === "string" &&
-        selectorValue.trim() !== ""
-      ) {
-        this.targetOpen.selector = selectorValue;
-        this._selectorOpen = true;
-      }
-      if (this.isOpen) {
-        this._reopen = true;
-        this.close();
-      }
-      if (!this._selectorOpen)
-        this.targetOpen.selector = this.lastClosed.selector;
-      if (!this._reopen) this.previousActiveElement = document.activeElement;
-
-      this.targetOpen.element = document.querySelector(
-        this.targetOpen.selector
-      );
-
-      if (this.targetOpen.element) {
-        // YouTube
-        if (
-          this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)
-        ) {
-          const codeVideo = this.targetOpen.element.getAttribute(
-            this.options.youtubeAttribute
-          );
-
-          const urlVideo = `https://www.youtube.com/embed/${codeVideo}?rel=0&showinfo=0&autoplay=1`;
-
-          const iframe = document.createElement("iframe");
-          iframe.setAttribute("allowfullscreen", "");
-
-          const autoplay = this.options.setAutoplayYoutube ? "autoplay;" : "";
-          iframe.setAttribute("allow", `${autoplay}; encrypted-media`);
-
-          iframe.setAttribute("src", urlVideo);
-
-          if (
-            this.targetOpen.element.querySelector(
-              `[${this.options.youtubePlaceAttribute}]`
-            )
-          )
-            this.targetOpen.element
-              .querySelector(`[${this.options.youtubePlaceAttribute}]`)
-              .appendChild(iframe);
-        }
-        if (this.options.hashSettings.location) {
-          // Получение хэша и его выставление
-          this._getHash();
-          this._setHash();
-        }
-
-        // До открытия
-        this.options.on.beforeOpen(this);
-
-        this.targetOpen.element.classList.add(this.options.classes.popupActive);
-        document.body.classList.add(this.options.classes.bodyActive);
-
-        if (!this._reopen) bodyLockToggle();
-        else this._reopen = false;
-
-        this.targetOpen.element.setAttribute("aria-hidden", "false");
-
-        // // Запоминаю это открытое окно. Оно будет последним открытым
-        this.previousOpen.selector = this.targetOpen.selector;
-        this.previousOpen.element = this.targetOpen.element;
-
-        this._selectorOpen = false;
-
-        this.isOpen = true;
-
-        setTimeout(() => {
-          this._focusTrap();
-        }, 50);
-
-        // После открытия
-        //this.options.on.afterOpen(this);
-
-        // Создаем свое событие после открытия попапа
-        document.dispatchEvent(
-          new CustomEvent("afterPopupOpen", {
-            detail: {
-              popup: this,
-            },
-          })
-        );
-        this.popupLogging(`Открыл попап`);
-      } else
-        this.popupLogging(
-          `Ой ой, такого попапа нет. Проверьте корректность ввода. `
-        );
-    }
-    close(selectorValue) {
-      if (
-        selectorValue &&
-        typeof selectorValue === "string" &&
-        selectorValue.trim() !== ""
-      ) {
-        this.previousOpen.selector = selectorValue;
-      }
-      if (!this.isOpen || !bodyLockStatus) {
-        return;
-      }
-      // До закрытия
-      this.options.on.beforeClose(this);
-      // YouTube
-      if (this.targetOpen.element.hasAttribute(this.options.youtubeAttribute)) {
-        if (
-          this.targetOpen.element.querySelector(
-            `[${this.options.youtubePlaceAttribute}]`
-          )
-        )
-          this.targetOpen.element.querySelector(
-            `[${this.options.youtubePlaceAttribute}]`
-          ).innerHTML = "";
-      }
-      this.previousOpen.element.classList.remove(
-        this.options.classes.popupActive
-      );
-      // aria-hidden
-      this.previousOpen.element.setAttribute("aria-hidden", "true");
-      if (!this._reopen) {
-        document.body.classList.remove(this.options.classes.bodyActive);
-        bodyLockToggle();
-        // bodyLock();
-        this.isOpen = false;
-      }
-      // Очищение адресной строки
-      this._removeHash();
-      if (this._selectorOpen) {
-        this.lastClosed.selector = this.previousOpen.selector;
-        this.lastClosed.element = this.previousOpen.element;
-      }
-      // После закрытия
-      this.options.on.afterClose(this);
-      setTimeout(() => {
-        this._focusTrap();
-      }, 50);
-
-      this.popupLogging(`Закрыл попап`);
-    }
-    // Получение хэша
-    _getHash() {
-      if (this.options.hashSettings.location) {
-        this.hash = this.targetOpen.selector.includes("#")
-          ? this.targetOpen.selector
-          : this.targetOpen.selector.replace(".", "#");
-      }
-    }
-    _openToHash() {
-      let classInHash = document.querySelector(
-        `.${window.location.hash.replace("#", "")}`
-      )
-        ? `.${window.location.hash.replace("#", "")}`
-        : document.querySelector(`${window.location.hash}`)
-        ? `${window.location.hash}`
-        : null;
-
-      const buttons = document.querySelector(
-        `[${this.options.attributeOpenButton}="${classInHash}"]`
-      );
-      if (buttons) {
-        if (classInHash) this.open(classInHash);
-      }
-    }
-    // Утсановка хэша
-    _setHash() {
-      history.pushState("", "", this.hash);
-    }
-    _removeHash() {
-      history.pushState("", "", window.location.href.split("#")[0]);
-    }
-    _focusCatch(e) {
-      const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
-      const focusArray = Array.prototype.slice.call(focusable);
-      const focusedIndex = focusArray.indexOf(document.activeElement);
-
-      if (e.shiftKey && focusedIndex === 0) {
-        focusArray[focusArray.length - 1].focus();
-        e.preventDefault();
-      }
-      if (!e.shiftKey && focusedIndex === focusArray.length - 1) {
-        focusArray[0].focus();
-        e.preventDefault();
-      }
-    }
-    _focusTrap() {
-      const focusable = this.previousOpen.element.querySelectorAll(
-        this._focusEl
-      );
-      if (!this.isOpen && this.lastFocusEl) {
-        this.lastFocusEl.focus();
-      } else {
-        focusable[0].focus();
-      }
-    }
-    // Функция вывода в консоль
-    popupLogging(message) {
-      this.options.logging ? functions_FLS(`[Попапос]: ${message}`) : null;
-    }
-  }
-  // Запускаем и добавляем в объект модулей
-  modules_flsModules.popup = new Popup({}); // CONCATENATED MODULE: ./src/js/files/scroll/gotoblock.js
-  // Подключение функционала "Чертогов Фрилансера"
-
-  // Подключение дополнения для увеличения возможностей
-  // Документация: https://github.com/cferdinandi/smooth-scroll
-  // import SmoothScroll from 'smooth-scroll';
-  //==============================================================================================================================================================================================================================================================================================================================
-
-  // Модуль плавной проктутки к блоку
-  let gotoblock_gotoBlock = (
-    targetBlock,
-    noHeader = false,
-    speed = 500,
-    offset = 0
-  ) => {
-    const targetBlockElement =
-      typeof targetBlock === "string"
-        ? document.querySelector(targetBlock)
-        : targetBlock;
-    if (targetBlockElement) {
-      let headerItem = "";
-      let headerItemHeight = 0;
-      if (noHeader) {
-        headerItem = "header.header";
-        headerItemHeight = document.querySelector(headerItem).offsetHeight;
-      }
-      let options = {
-        speedAsDuration: true,
-        speed: speed,
-        header: headerItem,
-        offset: offset,
-        easing: "easeOutQuad",
-      };
-      // Закрываем меню, если оно открыто
-      document.documentElement.classList.contains("menu-open")
-        ? menuClose()
-        : null;
-
-      if (typeof SmoothScroll !== "undefined") {
-        // Прокрутка с использованием дополнения
-        new SmoothScroll().animateScroll(targetBlockElement, "", options);
-      } else {
-        // Прокрутка стандартными средствами
-        let targetBlockElementPosition =
-          targetBlockElement.getBoundingClientRect().top + scrollY;
-        window.scrollTo({
-          top: headerItemHeight
-            ? targetBlockElementPosition - headerItemHeight
-            : targetBlockElementPosition,
-          behavior: "smooth",
-        });
-      }
-      FLS(`[gotoBlock]: Юхуу...едем к ${targetBlock}`);
-    } else {
-      FLS(`[gotoBlock]: Ой ой..Такого блока нет на странице: ${targetBlock}`);
-    }
-  }; // CONCATENATED MODULE: ./src/js/files/forms/forms.js
-  // Подключение функционала "Чертогов Фрилансера"
-  // Подключение списка активных модулей
-
-  // Вспомогательные функции
-
-  // Модуль прокрутки к блоку
-
-  //================================================================================================================================================================================================================================================================================================================================
-
-  /*
-Чтобы поле участвовало в валидации добавляем атрибут data-required
-Особые проверки:
-data-required="email" - вадидация E-mail
-
-Чтобы поле валидировалось при потере фокуса, 
-к атрибуту data-required добавляем атрибут data-validate
-
-Чтобы вывести текст ошибки, нужно указать его в атрибуте data-error
-
-data-popup-message - указываем селектор попапа который нужно показать после отправки формы (режимы data-ajax или data-dev) ! необходимо подключить функционал попапов в app.js
-data-ajax - отправляем данные формы AJAX запросом по адресу указанному в action методом указанным в method
-data-dev - режим разработчика - эмитируем отправку формы
-data-goto-error - прокрутить страницу к ошибке
-*/
-
-  // Работа с полями формы. Добавление классов, работа с placeholder
-  function formFieldsInit() {
-    const formFields = document.querySelectorAll(
-      "input[placeholder],textarea[placeholder]"
-    );
-    if (formFields.length) {
-      formFields.forEach((formField) => {
-        formField.dataset.placeholder = formField.placeholder;
-      });
-    }
-    document.body.addEventListener("focusin", function (e) {
-      const targetElement = e.target;
-      if (
-        targetElement.tagName === "INPUT" ||
-        targetElement.tagName === "TEXTAREA"
-      ) {
-        if (targetElement.dataset.placeholder) {
-          targetElement.placeholder = "";
-        }
-        targetElement.classList.add("_form-focus");
-        targetElement.parentElement.classList.add("_form-focus");
-
-        formValidate.removeError(targetElement);
-      }
-    });
-    document.body.addEventListener("focusout", function (e) {
-      const targetElement = e.target;
-      if (
-        targetElement.tagName === "INPUT" ||
-        targetElement.tagName === "TEXTAREA"
-      ) {
-        if (targetElement.dataset.placeholder) {
-          targetElement.placeholder = targetElement.dataset.placeholder;
-        }
-        targetElement.classList.remove("_form-focus");
-        targetElement.parentElement.classList.remove("_form-focus");
-
-        // Моментальная валидация
-        if (targetElement.hasAttribute("data-validate")) {
-          formValidate.validateInput(targetElement);
-        }
-      }
-    });
-  }
-  // Валидация форм
-  let formValidate = {
-    getErrors(form) {
-      let error = 0;
-      let formRequiredItems = form.querySelectorAll("*[data-required]");
-      if (formRequiredItems.length) {
-        formRequiredItems.forEach((formRequiredItem) => {
-          if (
-            (formRequiredItem.offsetParent !== null ||
-              formRequiredItem.tagName === "SELECT") &&
-            !formRequiredItem.disabled
-          ) {
-            error += this.validateInput(formRequiredItem);
-          }
-        });
-      }
-      return error;
-    },
-    validateInput(formRequiredItem) {
-      let error = 0;
-      if (formRequiredItem.dataset.required === "email") {
-        formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-        if (this.emailTest(formRequiredItem)) {
-          this.addError(formRequiredItem);
-          error++;
-        } else {
-          this.removeError(formRequiredItem);
-        }
-      } else if (
-        formRequiredItem.type === "checkbox" &&
-        !formRequiredItem.checked
-      ) {
-        this.addError(formRequiredItem);
-        error++;
-      } else {
-        if (!formRequiredItem.value) {
-          this.addError(formRequiredItem);
-          error++;
-        } else {
-          this.removeError(formRequiredItem);
-        }
-      }
-      return error;
-    },
-    addError(formRequiredItem) {
-      formRequiredItem.classList.add("_form-error");
-      formRequiredItem.parentElement.classList.add("_form-error");
-      let inputError =
-        formRequiredItem.parentElement.querySelector(".form__error");
-      if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-      if (formRequiredItem.dataset.error) {
-        formRequiredItem.parentElement.insertAdjacentHTML(
-          "beforeend",
-          `<div class="form__error">${formRequiredItem.dataset.error}</div>`
-        );
-      }
-    },
-    removeError(formRequiredItem) {
-      formRequiredItem.classList.remove("_form-error");
-      formRequiredItem.parentElement.classList.remove("_form-error");
-      if (formRequiredItem.parentElement.querySelector(".form__error")) {
-        formRequiredItem.parentElement.removeChild(
-          formRequiredItem.parentElement.querySelector(".form__error")
-        );
-      }
-    },
-    formClean(form) {
-      form.reset();
-      setTimeout(() => {
-        let inputs = form.querySelectorAll("input,textarea");
-        for (let index = 0; index < inputs.length; index++) {
-          const el = inputs[index];
-          el.parentElement.classList.remove("_form-focus");
-          el.classList.remove("_form-focus");
-          formValidate.removeError(el);
-        }
-        let checkboxes = form.querySelectorAll(".checkbox__input");
-        if (checkboxes.length > 0) {
-          for (let index = 0; index < checkboxes.length; index++) {
-            const checkbox = checkboxes[index];
-            checkbox.checked = false;
-          }
-        }
-        if (modules_flsModules.select) {
-          let selects = form.querySelectorAll(".select");
-          if (selects.length) {
-            for (let index = 0; index < selects.length; index++) {
-              const select = selects[index].querySelector("select");
-              modules_flsModules.select.selectBuild(select);
-            }
-          }
-        }
-      }, 0);
-    },
-    emailTest(formRequiredItem) {
-      return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(
-        formRequiredItem.value
-      );
-    },
-  };
-  /* Отправка форм */
-  function formSubmit(validate) {
-    if (flsModules.popup) {
-      flsModules.popup.open("some");
-    }
-    const forms = document.forms;
-    if (forms.length) {
-      for (const form of forms) {
-        form.addEventListener("submit", function (e) {
-          const form = e.target;
-          formSubmitAction(form, e);
-        });
-        form.addEventListener("reset", function (e) {
-          const form = e.target;
-          formValidate.formClean(form);
-        });
-      }
-    }
-    async function formSubmitAction(form, e) {
-      const error = validate ? formValidate.getErrors(form) : 0;
-      if (error === 0) {
-        const ajax = form.hasAttribute("data-ajax");
-        if (ajax) {
-          // Если режим ajax
-          e.preventDefault();
-          const formAction = form.getAttribute("action")
-            ? form.getAttribute("action").trim()
-            : "#";
-          const formMethod = form.getAttribute("method")
-            ? form.getAttribute("method").trim()
-            : "GET";
-          const formData = new FormData(form);
-
-          form.classList.add("_sending");
-          const response = await fetch(formAction, {
-            method: formMethod,
-            body: formData,
-          });
-          if (response.ok) {
-            let responseResult = await response.json();
-            form.classList.remove("_sending");
-            formSent(form);
-          } else {
-            alert("Ошибка");
-            form.classList.remove("_sending");
-          }
-        } else if (form.hasAttribute("data-dev")) {
-          // Если режим разработки
-          e.preventDefault();
-          formSent(form);
-        }
-      } else {
-        e.preventDefault();
-        const formError = form.querySelector("._form-error");
-        if (formError && form.hasAttribute("data-goto-error")) {
-          gotoBlock(formError, true, 1000);
-        }
-      }
-    }
-    // Действия после отправки формы
-    function formSent(form) {
-      // Создаем событие отправки формы
-      document.dispatchEvent(
-        new CustomEvent("formSent", {
-          detail: {
-            form: form,
-          },
-        })
-      );
-      // Показываем попап, если подключен модуль попапов
-      // и для формы указана настройка
-      setTimeout(() => {
-        if (flsModules.popup) {
-          const popup = form.dataset.popupMessage;
-          popup ? flsModules.popup.open(popup) : null;
-        }
-      }, 0);
-      // Очищаем форму
-      formValidate.formClean(form);
-      // Сообщаем в консоль
-      formLogging(`Форма отправлена!`);
-    }
-    function formLogging(message) {
-      FLS(`[Формы]: ${message}`);
-    }
-  }
-  /* Модуь формы "показать пароль" */
-  function formViewpass() {
-    document.addEventListener("click", function (e) {
-      let targetElement = e.target;
-      if (targetElement.closest('[class*="__viewpass"]')) {
-        let inputType = targetElement.classList.contains("active")
-          ? "password"
-          : "text";
-        targetElement.parentElement
-          .querySelector("input")
-          .setAttribute("type", inputType);
-        targetElement.classList.toggle("active");
-      }
-    });
-  }
-  /* Модуь формы "колличество" */
-  function formQuantity() {
-    document.addEventListener("click", function (e) {
-      let targetElement = e.target;
-      if (targetElement.closest(".quantity__button")) {
-        let value = parseInt(
-          targetElement.closest(".quantity").querySelector("input").value
-        );
-        if (targetElement.classList.contains("quantity__button_plus")) {
-          value++;
-        } else {
-          --value;
-          if (value < 1) value = 1;
-        }
-        targetElement.closest(".quantity").querySelector("input").value = value;
-      }
-    });
-  }
-  /* Модуь звездного рейтинга */
-  function formRating() {
-    const ratings = document.querySelectorAll(".rating");
-    if (ratings.length > 0) {
-      initRatings();
-    }
-    // Основная функция
-    function initRatings() {
-      let ratingActive, ratingValue;
-      // "Бегаем" по всем рейтингам на странице
-      for (let index = 0; index < ratings.length; index++) {
-        const rating = ratings[index];
-        initRating(rating);
-      }
-      // Инициализируем конкретный рейтинг
-      function initRating(rating) {
-        initRatingVars(rating);
-
-        setRatingActiveWidth();
-
-        if (rating.classList.contains("rating_set")) {
-          setRating(rating);
-        }
-      }
-      // Инициализайция переменных
-      function initRatingVars(rating) {
-        ratingActive = rating.querySelector(".rating__active");
-        ratingValue = rating.querySelector(".rating__value");
-      }
-      // Изменяем ширину активных звезд
-      function setRatingActiveWidth(index = ratingValue.innerHTML) {
-        const ratingActiveWidth = index / 0.05;
-        ratingActive.style.width = `${ratingActiveWidth}%`;
-      }
-      // Возможность указать оценку
-      function setRating(rating) {
-        const ratingItems = rating.querySelectorAll(".rating__item");
-        for (let index = 0; index < ratingItems.length; index++) {
-          const ratingItem = ratingItems[index];
-          ratingItem.addEventListener("mouseenter", function (e) {
-            // Обновление переменных
-            initRatingVars(rating);
-            // Обновление активных звезд
-            setRatingActiveWidth(ratingItem.value);
-          });
-          ratingItem.addEventListener("mouseleave", function (e) {
-            // Обновление активных звезд
-            setRatingActiveWidth();
-          });
-          ratingItem.addEventListener("click", function (e) {
-            // Обновление переменных
-            initRatingVars(rating);
-
-            if (rating.dataset.ajax) {
-              // "Отправить" на сервер
-              setRatingValue(ratingItem.value, rating);
-            } else {
-              // Отобразить указанную оцнку
-              ratingValue.innerHTML = index + 1;
-              setRatingActiveWidth();
-            }
-          });
-        }
-      }
-      async function setRatingValue(value, rating) {
-        if (!rating.classList.contains("rating_sending")) {
-          rating.classList.add("rating_sending");
-
-          // Отправика данных (value) на сервер
-          let response = await fetch("rating.json", {
-            method: "GET",
-
-            //body: JSON.stringify({
-            //	userRating: value
-            //}),
-            //headers: {
-            //	'content-type': 'application/json'
-            //}
-          });
-          if (response.ok) {
-            const result = await response.json();
-
-            // Получаем новый рейтинг
-            const newRating = result.newRating;
-
-            // Вывод нового среднего результата
-            ratingValue.innerHTML = newRating;
-
-            // Обновление активных звезд
-            setRatingActiveWidth();
-
-            rating.classList.remove("rating_sending");
-          } else {
-            alert("Ошибка");
-
-            rating.classList.remove("rating_sending");
-          }
-        }
-      }
-    }
-  } // CONCATENATED MODULE: ./src/js/libs/watcher.js
+  window.addEventListener("load", function (e) {
+    // Запуск инициализации слайдеров
+    initSliders();
+    // Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
+    //initSlidersScroll();
+  }); // CONCATENATED MODULE: ./src/js/libs/watcher.js
   // Подключение функционала "Чертогов Фрилансера"
 
   // Наблюдатель объектов [всевидещее око]
@@ -17684,35 +17679,37 @@ data-goto-error - прокрутить страницу к ошибке
   // Подключение списка активных модулей
 
   // //темная тема
-  // document.querySelector('.themetoggle').addEventListener('click', (e) => {
-  //     if(localStorage.getItem('theme') === 'dark') {
-  //         localStorage.removeItem('theme');
-  //     } else {
-  //         localStorage.setItem('theme', 'dark');
-  //     }
-  //     addDarkClassToHTML();
-  // });
+  document.querySelector(".themetoggle").addEventListener("click", (e) => {
+    if (localStorage.getItem("theme") === "dark") {
+      localStorage.removeItem("theme");
+    } else {
+      localStorage.setItem("theme", "dark");
+    }
+    addDarkClassToHTML();
+  });
 
-  // function addDarkClassToHTML() {
-  //     try {
-  //         const slideOnHome = document.querySelector('.slide-main-slider');
-  //         let header = document.querySelector('.header');
+  function addDarkClassToHTML() {
+    try {
+      const slideOnHome = document.querySelector(".slide-main-slider");
+      let header = document.querySelector(".header");
 
-  //         if(localStorage.getItem('theme') === 'dark') {
-  //             document.querySelector('html').classList.add('dark');
+      if (localStorage.getItem("theme") === "dark") {
+        document.querySelector("html").classList.add("dark");
 
-  //             if( slideOnHome ) {
-  //                 const headerBackground = document.querySelector('.header__background');
-  //                 headerBackground.style.display = "none";
-  //                 header.style.position = "absolute";
-  //             }
-  //         } else {
-  //             document.querySelector('html').classList.remove('dark');
-  //             header.style.position = "relative";
-  //         }
-  //     } catch (err) {}
-  // }
-  // addDarkClassToHTML();
+        if (slideOnHome) {
+          const headerBackground = document.querySelector(
+            ".header__background"
+          );
+          headerBackground.style.display = "none";
+          header.style.position = "absolute";
+        }
+      } else {
+        document.querySelector("html").classList.remove("dark");
+        header.style.position = "relative";
+      }
+    } catch (err) {}
+  }
+  addDarkClassToHTML();
 
   let listUl = document.querySelectorAll(".menu__sub-list");
   listUl.forEach(function (item, i, listUl) {
@@ -17728,68 +17725,61 @@ data-goto-error - прокрутить страницу к ошибке
     }
   });
 
-  // addTouchClass();
+  addTouchClass();
   // длинное меню
-  // function menuDotts() {
-  //     if(window.innerWidth > 1023.98) {
-  //         let enumeration = [];
-  //         const menuItem = document.querySelector('.menu__list').children;
-  //         const menu = document.querySelector('.menu');
-  //         const menuWidth = menu.offsetWidth;
-  //         const menuBody = document.querySelector('.menu__body');
-  //         let left = 75;
+  function menuDotts() {
+    if (window.innerWidth > 1023.98) {
+      let enumeration = [];
+      const menuItem = document.querySelector(".menu__list").children;
+      const menu = document.querySelector(".menu");
+      const menuWidth = menu.offsetWidth;
+      const menuBody = document.querySelector(".menu__body");
+      let left = 80;
 
-  //         menuItem.forEach(function(item, i, menuItem) {
-  //             let width = item.clientWidth;
-  //             console.log(`ширина айтема ${width}`);
-  //             left +=  width;
+      menuItem.forEach(function (item, i, menuItem) {
+        let width = item.clientWidth;
+        left += width;
 
-  //             if(window.innerWidth > 1023.98 && window.innerWidth < 1365.98) {
-  //                 left +=  12;
-  //                 console.log(`margin - 12 ---${left}`);
-  //             } else
-  //             if (window.innerWidth > 1365.98 && window.innerWidth < 1919.98) {
-  //                 left +=  16;
-  //                 console.log(`margin - 16 ---${left}`);
-  //             } else if(window.innerWidth > 1919.98) {
-  //                 left +=  29;
-  //                 console.log(`margin - 29 ---${left}`);
-  //             }
+        if (window.innerWidth > 1023.98 && window.innerWidth < 1365.98) {
+          left += 12;
+        } else if (window.innerWidth > 1365.98 && window.innerWidth < 1919.98) {
+          left += 16;
+        } else if (window.innerWidth > 1919.98) {
+          left += 29;
+        }
+        // let touch = document.querySelector('.touch');
+        // if(touch) {
+        //     if(item.lastChild.className == "menu__button-sub-open _icon-arrow-r") {
+        //         console.log(` ---> ${left}`);
+        //         left += 36;
+        //     }
+        // }
+        console.log(`лево ${left}`);
+        if (menuWidth < left) {
+          enumeration.push(item);
+        }
+      });
+      if (menuWidth < left) {
+        menuBody.insertAdjacentHTML(
+          "beforeend",
+          '<div class="menu__more"><div class="menu__more-btn _icon-ellipsis-vertical"></div><ul class="menu__list"></ul></div>'
+        );
+      }
+      const more = document.querySelector(".menu__more>.menu__list");
+      for (let i = 0; i < enumeration.length; i++) {
+        more.append(enumeration[i]);
+      }
+    }
+  }
+  menuDotts();
 
-  //             // let touch = document.querySelector('.touch');
-  //             // if(touch) {
-  //             //     if(item.lastChild.className == "menu__button-sub-open _icon-arrow-r") {
-  //             //         console.log(` ---> ${left}`);
-  //             //         left += 36;
-  //             //     }
-  //             // }
-
-  //             console.log(`лево ${left}`);
-  //             if( menuWidth < left ) {
-  //                 console.log('скрыть');
-  //                 enumeration.push(item);
-  //             };
-  //         });
-
-  //         console.log(`${menuWidth} ширина меню < ${left} айтем`);
-  //         if(menuWidth < left) {
-  //             menuBody.insertAdjacentHTML("beforeend",'<div class="menu__more"><div class="menu__more-btn _icon-ellipsis-vertical"></div><ul class="menu__list"></ul></div>');
-  //         }
-  //         const more = document.querySelector('.menu__more>.menu__list');
-  //         for (let i = 0; i < enumeration.length; i++) {
-  //             more.append(enumeration[i]);
-  //         }
-  //     }
-  // }
-  // menuDotts();
-
-  // const iconMore = document.querySelector(".menu__more-btn");
-  // if(iconMore) {
-  // 	iconMore.addEventListener('click', function(e) {
-  //         closeAllSubMenu();
-  // 		document.documentElement.classList.toggle('menu-more');
-  // 	});
-  // }
+  const iconMore = document.querySelector(".menu__more-btn");
+  if (iconMore) {
+    iconMore.addEventListener("click", function (e) {
+      closeAllSubMenu();
+      document.documentElement.classList.toggle("menu-more");
+    });
+  }
 
   window.onload = function () {
     document.addEventListener("click", documentActions);
@@ -17962,39 +17952,6 @@ data-goto-error - прокрутить страницу к ошибке
   // Функционал ========================================================================================================================================================================================================================================================
   // ========================================================================================================================================================================================================================================================
 
-  //темная тема
-  document.querySelector(".themetoggle").addEventListener("click", (e) => {
-    if (localStorage.getItem("theme") === "dark") {
-      localStorage.removeItem("theme");
-    } else {
-      localStorage.setItem("theme", "dark");
-    }
-    addDarkClassToHTML();
-  });
-
-  function addDarkClassToHTML() {
-    try {
-      const slideOnHome = document.querySelector(".slide-main-slider");
-      let header = document.querySelector(".header");
-
-      if (localStorage.getItem("theme") === "dark") {
-        document.querySelector("html").classList.add("dark");
-
-        if (slideOnHome) {
-          const headerBackground = document.querySelector(
-            ".header__background"
-          );
-          headerBackground.style.display = "none";
-          header.style.position = "absolute";
-        }
-      } else {
-        document.querySelector("html").classList.remove("dark");
-        header.style.position = "relative";
-      }
-    } catch (err) {}
-  }
-  addDarkClassToHTML();
-
   /* Проверка поддержки webp, добавление класса webp или no-webp для HTML */
   /* (i) необходимо для корректного отображения webp из css  */
   isWebp();
@@ -18099,7 +18056,6 @@ data-goto-error - прокрутить страницу к ошибке
 Документация плагина: https://swiperjs.com/
 Сниппет(HTML): swiper
 */
-  // import "./files/sliders.js";
 
   // ========================================================================================================================================================================================================================================================
   // Модули работы с прокруткой страницы ========================================================================================================================================================================================================================================================
