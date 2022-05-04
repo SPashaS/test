@@ -17734,7 +17734,7 @@ EffectFade, Lazy, Manipulation
       const menu = document.querySelector(".menu");
       const menuWidth = menu.offsetWidth;
       const menuBody = document.querySelector(".menu__body");
-      let left = 80;
+      let left = 110;
 
       menuItem.forEach(function (item, i, menuItem) {
         let width = item.clientWidth;

@@ -2742,6 +2742,7 @@ a.email {
     top: 0;
     padding: 67px 0 10px;
     width: 282px;
+    height: 90%;
     background: #fff;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
     transform: translateX(-100%);
