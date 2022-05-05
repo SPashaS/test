@@ -11,7 +11,7 @@
 	<link rel="preload" href="./fonts/Golos-Text_DemiBold.ttf" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/Golos-Text_Medium.ttf" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin> -->
-	<link rel="stylesheet" href="css/style.css?_v=20220506003252">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220506011943">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -694,7 +694,7 @@
 				const menuBody = document.querySelector('.menu__body');
 				let left = 110;
 
-				menuItem.forEach(function(item, i, menuItem) {
+				Array.from(menuItem).forEach(function(item, i, menuItem) {
 					let width = item.clientWidth;
 					left += width;
 
@@ -706,13 +706,6 @@
 					} else if (window.innerWidth > 1919.98) {
 						left += 29;
 					}
-					// let touch = document.querySelector('.touch');
-					// if(touch) {
-					//     if(item.lastChild.className == "menu__button-sub-open _icon-arrow-r") {
-					//         console.log(` ---> ${left}`);
-					//         left += 36;
-					//     }
-					// }
 					console.log(`лево ${left}`);
 					if (menuWidth < left) {
 						enumeration.push(item);
@@ -729,7 +722,7 @@
 		}
 		menuDotts();
 	</script>
-	<script defer src="js/app.min.js?_v=20220506003252"></script>
+	<script defer src="js/app.min.js?_v=20220506011943"></script>
 </body>
 
 </html>
