@@ -6,10 +6,10 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="preload" href="../fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="../fonts/Golos-Text_Bold.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="../fonts/icons.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.min.css?_v=20220505234326">
+	<link rel="preload" href="./fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/Golos-Text_Bold.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -414,28 +414,6 @@
 					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_next _icon-arrows-slider"></button>
 				</div>
 			</section>
-			<script>
-				function addDarkClassToHTML() {
-					try {
-						const slideOnHome = document.querySelector('.slide-main-slider');
-						let header = document.querySelector('.header');
-
-						if (localStorage.getItem('theme') === 'dark') {
-							document.querySelector('html').classList.add('dark');
-
-							if (slideOnHome) {
-								const headerBackground = document.querySelector('.header__background');
-								headerBackground.style.display = "none";
-								header.style.position = "absolute";
-							}
-						} else {
-							document.querySelector('html').classList.remove('dark');
-							header.style.position = "relative";
-						}
-					} catch (err) {}
-				}
-				addDarkClassToHTML();
-			</script>
 			<div class="page__about about">
 				<!-- <div class="about__container"> -->
 				<div class="about__row" data-simplebar>
@@ -716,9 +694,94 @@
 		</div>
 	</div>
 
-	;
+
+	<script>
+		document.querySelector('.themetoggle').addEventListener('click', (e) => {
+			if (localStorage.getItem('theme') === 'dark') {
+				localStorage.removeItem('theme');
+			} else {
+				localStorage.setItem('theme', 'dark');
+			}
+			addDarkClassToHTML();
+		});
+
+		function addDarkClassToHTML() {
+			try {
+				const slideOnHome = document.querySelector('.slide-main-slider');
+				let header = document.querySelector('.header');
+
+				if (localStorage.getItem('theme') === 'dark') {
+					document.querySelector('html').classList.add('dark');
+
+					if (slideOnHome) {
+						const headerBackground = document.querySelector('.header__background');
+						headerBackground.style.display = "none";
+						header.style.position = "absolute";
+					}
+				} else {
+					document.querySelector('html').classList.remove('dark');
+					header.style.position = "relative";
+				}
+			} catch (err) {}
+		}
+		addDarkClassToHTML();
+
+		let listUl = document.querySelectorAll('.menu__sub-list');
+		listUl.forEach(function(item, i, listUl) {
+			if (item) {
+				item.insertAdjacentHTML("afterbegin", '<div class="menu__sub-list-back _icon-arrow-r">Назад</div>');
+				item.parentElement.insertAdjacentHTML("beforeend", '<div class="menu__button-sub-open _icon-arrow-r"></div>');
+			};
+		});
+
+
+		addTouchClass();
+		// длинное меню
+		function menuDotts() {
+			if (window.innerWidth > 1023.98) {
+				let enumeration = [];
+				const menuItem = document.querySelector('.menu__list').children;
+				const menu = document.querySelector('.menu');
+				const menuWidth = menu.offsetWidth;
+				const menuBody = document.querySelector('.menu__body');
+				let left = 110;
+
+				menuItem.forEach(function(item, i, menuItem) {
+					let width = item.clientWidth;
+					left += width;
+
+					if (window.innerWidth > 1023.98 && window.innerWidth < 1365.98) {
+						left += 12;
+					} else
+					if (window.innerWidth > 1365.98 && window.innerWidth < 1919.98) {
+						left += 16;
+					} else if (window.innerWidth > 1919.98) {
+						left += 29;
+					}
+					// let touch = document.querySelector('.touch');
+					// if(touch) {
+					//     if(item.lastChild.className == "menu__button-sub-open _icon-arrow-r") {
+					//         console.log(` ---> ${left}`);
+					//         left += 36;
+					//     }
+					// }
+					console.log(`лево ${left}`);
+					if (menuWidth < left) {
+						enumeration.push(item);
+					};
+				});
+				if (menuWidth < left) {
+					menuBody.insertAdjacentHTML("beforeend", '<div class="menu__more"><div class="menu__more-btn _icon-ellipsis-vertical"></div><ul class="menu__list"></ul></div>');
+				}
+				const more = document.querySelector('.menu__more>.menu__list');
+				for (let i = 0; i < enumeration.length; i++) {
+					more.append(enumeration[i]);
+				}
+			}
+		}
+		menuDotts();
 	</script>
-	<script defer src="js/app.min.js?_v=20220505234326"></script>
+	<script defer src="js/app.min.js?_v=20220505235612"></script>
 </body>
 
 </html>
