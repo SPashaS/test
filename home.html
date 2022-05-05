@@ -6,12 +6,12 @@
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<!-- <style>body{opacity: 0;}</style> -->
-	<link rel="preload" href="./fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
+	<!-- <link rel="preload" href="./fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/Golos-Text_Bold.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/Golos-Text_DemiBold.ttf" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/Golos-Text_Medium.ttf" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin> -->
+	<link rel="stylesheet" href="css/style.css?_v=20220506003252">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -337,7 +337,7 @@
 		<main class="page">
 			<section class="page__main-slider main-slider">
 				<div class="main-slider__slider">
-					<div class="main-slider__swiper">
+					<div class="main-slider__swiper" style="display: flex;">
 						<div class="main-slider__slide">
 							<div class="slide-main-slider slide-main-slider-ibg">
 								<picture><source srcset="img/main-slider/01-light.webp" type="image/webp"><img src="img/main-slider/01-light.jpg" alt="Image" title="Картинка"></picture>
@@ -762,7 +762,6 @@
 			if (isMobile.any()) document.documentElement.classList.add('touch');
 		}
 		addTouchClass();
-
 		// длинное меню
 		function menuDotts() {
 			if (window.innerWidth > 1023.98) {
@@ -808,7 +807,7 @@
 		}
 		menuDotts();
 	</script>
-	<script defer src="js/app.min.js?_v=20220506001920"></script>
+	<script defer src="js/app.min.js?_v=20220506003252"></script>
 </body>
 
 </html>
