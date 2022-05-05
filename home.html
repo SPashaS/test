@@ -418,7 +418,7 @@
 			</section>
 			<div class="page__about about">
 				<!-- <div class="about__container"> -->
-				<div class="about__row" data-simplebar>
+				<div class="about__row" data-simplebar style="display: flex;">
 					<div class="about__item item-about">
 						<div class="item-about__image">
 							<img src="img/about/experience.svg" alt="Реальный опыт" title="Реальный опыт">
@@ -772,7 +772,7 @@
 				const menuBody = document.querySelector('.menu__body');
 				let left = 110;
 
-				menuItem.forEach(function(item, i, menuItem) {
+				Array.from(menuItem).forEach(function(item, i, menuItem) {
 					let width = item.clientWidth;
 					left += width;
 
