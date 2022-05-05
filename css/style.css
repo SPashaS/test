@@ -453,10 +453,6 @@ img {
   overflow: hidden;
   touch-action: none;
 }
-.loaded body {
-  opacity: 1;
-}
-
 .wrapper {
   min-height: 100%;
   display: flex;
@@ -1256,16 +1252,12 @@ a.email {
 @media only screen and (min-width: 1365.98px) {
   .contacts-block__call {
     font-size: 22px;
+    line-height: 1;
   }
 }
-@media only screen and (min-width: 1365.98px) {
+@media only screen and (min-width: 1919.98px) {
   .contacts-block__call {
     font-size: 26px;
-  }
-}
-@media only screen and (min-width: 1365.98px) {
-  .contacts-block__call {
-    line-height: 1;
   }
 }
 .contacts-block .contacts-block__email {
@@ -1349,7 +1341,6 @@ a.email {
 @media only screen and (min-width: 1023.98px) {
   .header {
     min-height: 187px;
-    background-color: #fff;
     padding: 30px 0 19px;
     position: relative;
     top: 0;
@@ -4318,6 +4309,7 @@ main {
 
 .about {
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  min-height: 216px;
 }
 .about__row {
   overflow: hidden;

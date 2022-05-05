@@ -4096,54 +4096,49 @@
         destroy: h,
       });
   }
-  function me() {
-    !(function () {
-      let e = document.querySelectorAll(
-        '[class*="__swiper"]:not(.swiper-wrapper)'
-      );
-      e &&
-        e.forEach((e) => {
-          e.parentElement.classList.add("swiper"),
-            e.classList.add("swiper-wrapper");
-          for (const t of e.children) t.classList.add("swiper-slide");
-        });
-    })(),
-      document.querySelector(".main-slider") &&
-        document.querySelectorAll(".main-slider__slide").length > 1 &&
-        new de(".main-slider__slider", {
-          modules: [pe, fe],
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 1,
-          spaceBetween: 0,
-          speed: 800,
-          loop: !0,
-          preloadImages: !1,
-          lazy: !0,
-          pagination: { el: ".slider-dotts", clickable: !0 },
-          navigation: {
-            nextEl: ".controls-main-slider__arrow_next",
-            prevEl: ".controls-main-slider__arrow_prev",
-          },
-          on: {},
-        }),
-      window.innerWidth < 1365.98 &&
-        document.querySelector(".news-aside__slider") &&
-        new de(".news-aside__slider", {
-          modules: [fe],
-          observer: !0,
-          observeParents: !0,
-          slidesPerView: 1,
-          spaceBetween: 0,
-          speed: 800,
-          loop: !0,
-          pagination: { el: ".slider-dotts", clickable: !0 },
-          on: {},
-        });
-  }
-  window.addEventListener("load", function (e) {
-    me();
-  });
+  !(function () {
+    let e = document.querySelectorAll(
+      '[class*="__swiper"]:not(.swiper-wrapper)'
+    );
+    e &&
+      e.forEach((e) => {
+        e.parentElement.classList.add("swiper"),
+          e.classList.add("swiper-wrapper");
+        for (const t of e.children) t.classList.add("swiper-slide");
+      });
+  })(),
+    document.querySelector(".main-slider") &&
+      document.querySelectorAll(".main-slider__slide").length > 1 &&
+      new de(".main-slider__slider", {
+        modules: [pe, fe],
+        observer: !0,
+        observeParents: !0,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 800,
+        loop: !0,
+        preloadImages: !1,
+        lazy: !0,
+        pagination: { el: ".slider-dotts", clickable: !0 },
+        navigation: {
+          nextEl: ".controls-main-slider__arrow_next",
+          prevEl: ".controls-main-slider__arrow_prev",
+        },
+        on: {},
+      }),
+    window.innerWidth < 1365.98 &&
+      document.querySelector(".news-aside__slider") &&
+      new de(".news-aside__slider", {
+        modules: [fe],
+        observer: !0,
+        observeParents: !0,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        speed: 800,
+        loop: !0,
+        pagination: { el: ".slider-dotts", clickable: !0 },
+        on: {},
+      });
   e.watcher = new (class {
     constructor(e) {
       (this.config = Object.assign({ logging: !0 }, e)),
@@ -4254,19 +4249,19 @@
         );
     }
   })({});
-  let ve = !1;
-  function ge(e) {
+  let me = !1;
+  function ve(e) {
     this.type = e;
   }
   setTimeout(() => {
-    if (ve) {
+    if (me) {
       let e = new Event("windowScroll");
       window.addEventListener("scroll", function (t) {
         document.dispatchEvent(e);
       });
     }
   }, 0),
-    (ge.prototype.init = function () {
+    (ve.prototype.init = function () {
       const e = this;
       (this.оbjects = []),
         (this.daClassname = "_dynamic_adapt_"),
@@ -4318,7 +4313,7 @@
           this.mediaHandler(s, o);
       }
     }),
-    (ge.prototype.mediaHandler = function (e, t) {
+    (ve.prototype.mediaHandler = function (e, t) {
       if (e.matches)
         for (let e = 0; e < t.length; e++) {
           const i = t[e];
@@ -4332,7 +4327,7 @@
             this.moveBack(i.parent, i.element, i.index);
         }
     }),
-    (ge.prototype.moveTo = function (e, t, i) {
+    (ve.prototype.moveTo = function (e, t, i) {
       t.classList.add(this.daClassname),
         "last" === e || e >= i.children.length
           ? i.insertAdjacentElement("beforeend", t)
@@ -4340,17 +4335,17 @@
           ? i.children[e].insertAdjacentElement("beforebegin", t)
           : i.insertAdjacentElement("afterbegin", t);
     }),
-    (ge.prototype.moveBack = function (e, t, i) {
+    (ve.prototype.moveBack = function (e, t, i) {
       t.classList.remove(this.daClassname),
         void 0 !== e.children[i]
           ? e.children[i].insertAdjacentElement("beforebegin", t)
           : e.insertAdjacentElement("beforeend", t);
     }),
-    (ge.prototype.indexInParent = function (e, t) {
+    (ve.prototype.indexInParent = function (e, t) {
       const i = Array.prototype.slice.call(e.children);
       return Array.prototype.indexOf.call(i, t);
     }),
-    (ge.prototype.arraySort = function (e) {
+    (ve.prototype.arraySort = function (e) {
       "min" === this.type
         ? Array.prototype.sort.call(e, function (e, t) {
             return e.breakpoint === t.breakpoint
@@ -4375,8 +4370,8 @@
               : t.breakpoint - e.breakpoint;
           });
     });
-  var be, ye;
-  function we() {
+  var ge, be;
+  function ye() {
     try {
       const e = document.querySelector(".slide-main-slider");
       let t = document.querySelector(".header");
@@ -4391,9 +4386,9 @@
           (t.style.position = "relative");
     } catch (e) {}
   }
-  new ge("max").init(),
-    (be = void 0),
-    (ye = function () {
+  new ve("max").init(),
+    (ge = void 0),
+    (be = function () {
       var e =
         "undefined" != typeof globalThis
           ? globalThis
@@ -7765,17 +7760,17 @@
       );
     }),
     "object" == typeof exports && "undefined" != typeof module
-      ? (module.exports = ye())
+      ? (module.exports = be())
       : "function" == typeof define && define.amd
-      ? define(ye)
-      : ((be = be || self).SimpleBar = ye()),
+      ? define(be)
+      : ((ge = ge || self).SimpleBar = be()),
     document.querySelector(".themetoggle").addEventListener("click", (e) => {
       "dark" === localStorage.getItem("theme")
         ? localStorage.removeItem("theme")
         : localStorage.setItem("theme", "dark"),
-        we();
+        ye();
     }),
-    we(),
+    ye(),
     document.querySelectorAll(".menu__sub-list").forEach(function (e, t, i) {
       e &&
         (e.insertAdjacentHTML(
@@ -7815,8 +7810,8 @@
         for (let t = 0; t < e.length; t++) r.append(e[t]);
       }
     })();
-  const xe = document.querySelector(".menu__more-btn");
-  function Ee(e = null) {
+  const we = document.querySelector(".menu__more-btn");
+  function xe(e = null) {
     let t = [];
     if (e) {
       let i = e.parentNode;
@@ -7830,9 +7825,9 @@
         i.parentElement.classList.remove("_hover"));
     });
   }
-  xe &&
-    xe.addEventListener("click", function (e) {
-      Ee(), document.documentElement.classList.toggle("menu-more");
+  we &&
+    we.addEventListener("click", function (e) {
+      xe(), document.documentElement.classList.toggle("menu-more");
     }),
     (window.onload = function () {
       document.addEventListener("click", function (e) {
@@ -7868,7 +7863,7 @@
             window.innerWidth < 767.98 &&
               document.querySelector(".menu-open") &&
               (document.documentElement.classList.remove("menu-open"),
-              (document.querySelector(".menu__body").onmouseleave = Ee));
+              (document.querySelector(".menu__body").onmouseleave = xe));
         } else ((!t.closest(".contacts") && document.querySelectorAll(".contacts-open")) || t.closest(".call-back")) && document.documentElement.classList.remove("contacts-open");
       });
     }),
@@ -7879,12 +7874,12 @@
       t.classList.contains("menu__button-sub-open") &&
         i &&
         n &&
-        (Ee(n), n.classList.toggle("_open"), i.classList.toggle("_hover")),
+        (xe(n), n.classList.toggle("_open"), i.classList.toggle("_hover")),
         t.classList.contains("menu__sub-list-back") &&
           !t.closest("menu__item") &&
           t.parentNode.classList.remove("_open");
     }),
-    (document.querySelector(".menu").onmouseleave = Ee),
+    (document.querySelector(".menu").onmouseleave = xe),
     (function () {
       const e = document.documentElement.clientWidth;
       document.querySelectorAll(".menu__sub-list").forEach(function (t, i, n) {
@@ -7893,23 +7888,23 @@
         e < s + r && t.classList.add("_left");
       });
     })();
-  var Se = document.querySelectorAll(".language-header__item");
-  for (var Ce of Se)
-    Ce.addEventListener("click", function () {
-      Se.forEach((e) => {
+  var Ee = document.querySelectorAll(".language-header__item");
+  for (var Se of Ee)
+    Se.addEventListener("click", function () {
+      Ee.forEach((e) => {
         e.classList.remove("language-header__item_active");
       }),
         this.classList.toggle("language-header__item_active"),
         console.log(this.dataset.language);
     });
-  const Te = document.querySelector(".burger"),
-    Oe = document.querySelector(".menu__list"),
-    Le = document.querySelector(".search-menu__form");
+  const Ce = document.querySelector(".burger"),
+    Te = document.querySelector(".menu__list"),
+    Oe = document.querySelector(".search-menu__form");
   document.addEventListener("click", function (e) {
     const t = e.target,
-      i = t == Te || Te.contains(t),
-      n = t == Oe || Oe.contains(t),
-      s = t == Le || Le.contains(t),
+      i = t == Ce || Ce.contains(t),
+      n = t == Te || Te.contains(t),
+      s = t == Oe || Oe.contains(t),
       r = document.documentElement.classList.contains("menu-open");
     n ||
       i ||
@@ -7931,11 +7926,6 @@
       document.documentElement.classList.add(t);
     }),
     i(),
-    window.addEventListener("load", function () {
-      setTimeout(function () {
-        document.documentElement.classList.add("loaded");
-      }, 0);
-    }),
     (function () {
       let e = document.querySelector(".mobile-header__burger");
       e &&
@@ -8010,7 +8000,7 @@
       }
     })(),
     (function () {
-      ve = !0;
+      me = !0;
       const e = document.querySelector("header.header"),
         t = e.hasAttribute("data-scroll-show");
       e.dataset.scrollShow && e.dataset.scrollShow,
