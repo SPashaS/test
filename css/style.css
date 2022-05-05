@@ -386,7 +386,7 @@ body {
 body {
   color: #55595C;
   line-height: 1.2;
-  font-family: "Golos";
+  font-family: "Golos", sans-serif;
   font-size: 14px;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -658,6 +658,39 @@ h6:not(:last-child) {
   h6 {
     font-size: 17px;
   }
+}
+
+.swiper {
+  overflow: hidden;
+}
+
+.swiper-wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  display: flex;
+  position: relative;
+}
+
+.swiper-vertical .swiper-wrapper {
+  flex-direction: column;
+}
+
+.swiper-autoheight .swiper-wrapper {
+  align-items: flex-start;
+}
+
+.swiper-initialized .swiper-slide {
+  flex-shrink: 0;
+}
+
+.swiper-android .swiper-slide,
+.swiper-android .swiper-wrapper {
+  transform: translate3d(0px, 0, 0);
+}
+
+.swiper-button-lock {
+  display: none !important;
 }
 
 .checkbox {
@@ -4309,7 +4342,6 @@ main {
 
 .about {
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-  min-height: 216px;
 }
 .about__row {
   overflow: hidden;
@@ -4776,36 +4808,4 @@ main {
 .slider-news-aside__dotts {
   padding-top: 20px;
   position: relative;
-}
-.swiper {
-  overflow: hidden;
-}
-
-.swiper-wrapper {
-  width: 100%;
-  height: 100%;
-  box-sizing: content-box;
-  display: flex;
-  position: relative;
-}
-
-.swiper-vertical .swiper-wrapper {
-  flex-direction: column;
-}
-
-.swiper-autoheight .swiper-wrapper {
-  align-items: flex-start;
-}
-
-.swiper-initialized .swiper-slide {
-  flex-shrink: 0;
-}
-
-.swiper-android .swiper-slide,
-.swiper-android .swiper-wrapper {
-  transform: translate3d(0px, 0, 0);
-}
-
-.swiper-button-lock {
-  display: none !important;
 }
