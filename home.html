@@ -9,7 +9,7 @@
 	<link rel="preload" href="../fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../fonts/Golos-Text_Bold.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="../fonts/icons.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.min.css?_v=20220505220241">
+	<link rel="stylesheet" href="css/style.min.css?_v=20220505234326">
 	<link rel="shortcut icon" href="favicon.ico">
 	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -414,6 +414,28 @@
 					<button type="button" class="controls-main-slider__arrow controls-main-slider__arrow_next _icon-arrows-slider"></button>
 				</div>
 			</section>
+			<script>
+				function addDarkClassToHTML() {
+					try {
+						const slideOnHome = document.querySelector('.slide-main-slider');
+						let header = document.querySelector('.header');
+
+						if (localStorage.getItem('theme') === 'dark') {
+							document.querySelector('html').classList.add('dark');
+
+							if (slideOnHome) {
+								const headerBackground = document.querySelector('.header__background');
+								headerBackground.style.display = "none";
+								header.style.position = "absolute";
+							}
+						} else {
+							document.querySelector('html').classList.remove('dark');
+							header.style.position = "relative";
+						}
+					} catch (err) {}
+				}
+				addDarkClassToHTML();
+			</script>
 			<div class="page__about about">
 				<!-- <div class="about__container"> -->
 				<div class="about__row" data-simplebar>
@@ -694,8 +716,9 @@
 		</div>
 	</div>
 
-
-	<script defer src="js/app.min.js?_v=20220505220241"></script>
+	;
+	</script>
+	<script defer src="js/app.min.js?_v=20220505234326"></script>
 </body>
 
 </html>

@@ -4732,6 +4732,11 @@ main {
 .header-inner-page__breadcrumbs {
   margin-bottom: 11px;
 }
+.breadcrumbs-header-page {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .breadcrumbs-header-page__item {
   display: inline-flex;
   flex-direction: row-reverse;
