@@ -8,6 +8,8 @@
 	<!-- <style>body{opacity: 0;}</style> -->
 	<link rel="preload" href="./fonts/Golos-Text_Regular.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/Golos-Text_Bold.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/Golos-Text_DemiBold.ttf" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="./fonts/Golos-Text_Medium.ttf" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.ico">
@@ -655,9 +657,34 @@
 				item.parentElement.insertAdjacentHTML("beforeend", '<div class="menu__button-sub-open _icon-arrow-r"></div>');
 			};
 		});
-
-
+		/* Проверка мобильного браузера */
+		let isMobile = {
+			Android: function() {
+				return navigator.userAgent.match(/Android/i);
+			},
+			BlackBerry: function() {
+				return navigator.userAgent.match(/BlackBerry/i);
+			},
+			iOS: function() {
+				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+			},
+			Opera: function() {
+				return navigator.userAgent.match(/Opera Mini/i);
+			},
+			Windows: function() {
+				return navigator.userAgent.match(/IEMobile/i);
+			},
+			any: function() {
+				return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+			}
+		};
+		/* Добавление класса touch для HTML если браузер мобильный */
+		function addTouchClass() {
+			// Добавление класса _touch для HTML если браузер мобильный
+			if (isMobile.any()) document.documentElement.classList.add('touch');
+		}
 		addTouchClass();
+
 		// длинное меню
 		function menuDotts() {
 			if (window.innerWidth > 1023.98) {
@@ -703,7 +730,7 @@
 		}
 		menuDotts();
 	</script>
-	<script defer src="js/app.min.js?_v=20220505235612"></script>
+	<script defer src="js/app.min.js?_v=20220506001920"></script>
 </body>
 
 </html>
