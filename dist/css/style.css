@@ -1,10 +1,11 @@
 [data-simplebar] {
   position: relative;
-  flex-direction: column;
+  display: flex;
+  /* flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-start; */
 }
 
 .simplebar-wrapper {
@@ -4388,6 +4389,8 @@ main {
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
 }
 .about__row {
+  max-width: 1710px;
+  justify-content: space-between;
   overflow: hidden;
   margin: 0 auto;
   overflow-x: auto;
@@ -4410,11 +4413,17 @@ main {
     padding-top: 45px;
     padding-left: 21px;
     padding-bottom: 33px;
+    flex-basis: 265px;
   }
 }
 @media only screen and (min-width: 1023.98px) {
   .item-about {
-    flex-basis: 260px;
+    flex-basis: 285px;
+  }
+}
+@media only screen and (min-width: 1365.98px) {
+  .item-about {
+    flex-basis: 325px;
   }
 }
 @media only screen and (min-width: 1919.98px) {
@@ -4764,6 +4773,11 @@ main {
 .breadcrumbs-header-page__item span {
   font-size: 13px;
   line-height: 1.77;
+  letter-spacing: 0.5px;
+}
+.loaded .breadcrumbs-header-page__item a,
+.loaded .breadcrumbs-header-page__item span {
+  letter-spacing: 0;
 }
 .breadcrumbs-header-page__item a {
   text-decoration-line: underline;
