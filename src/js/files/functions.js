@@ -409,93 +409,27 @@ export function tabs() {
 }
 // Модуль работы с меню (бургер) =======================================================================================================================================================================================================================
 export function menuInit() {
-	let iconMenu = document.querySelector(".icon-menu");
+	let iconMenu = document.querySelector(".mobile-header__burger");
 	if (iconMenu) {
 		iconMenu.addEventListener("click", function (e) {
 			if (bodyLockStatus) {
-				if(document.querySelector('.contacts-open')) {
-					document.documentElement.classList.add("menu-open");
-					bodyUnlock();
-				} else {
-					// bodyLockToggle();
-					document.documentElement.classList.toggle("menu-open");
-				}
+				// bodyLockToggle();
+				document.documentElement.classList.toggle("menu-open");
 			}
 		});
 	};
 }
 
-// if(document.querySelector('.menu-open')) {
-// 	const menuBody = document.querySelector('.header__menu');
-// 	console.log('nfr nfr');
-// 	menuBody.addEventListener("click", function (e) {
-		
-// 		console.log(e.target);
-// 	})
-// };
-
-
-
+//------------------------------------------------------------------------------------------------------------
 
 export function menuOpen() {
 	bodyLock();
 	document.documentElement.classList.add("menu-open");
 }
 export function menuClose() {
-		bodyUnlock();
-		document.documentElement.classList.remove("menu-open");
+	bodyUnlock();
+	document.documentElement.classList.remove("menu-open");
 }
-
-// export function popupOpen() {
-// 	document.documentElement.classList.add('popup-show');
-// }
-// export function popupClose() {
-// 	document.documentElement.classList.remove('popup-show');
-// }
-
-// const contactsButton = document.querySelector('.contacts-header__button');
-// const contactsBody = document.querySelector('.header__contacts')
-// const toggleContacts = function() {
-//     document.documentElement.classList.toggle("contacts-open");
-// }
-
-// contactsButton.addEventListener('click', function(e) {
-//     toggleContacts ();
-// });
-
-
-
-// function contactsInit() {
-// 	let contactsButton = document.querySelector('.contacts-header__button');
-//     let contactsBody = document.querySelector('.header__contacts')
-// 	console.log(contactsButton);
-// 	console.log(contactsBody );
-// 	if (contactsButton) {
-// 		contactsButton.addEventListener("click", function (e) {
-// 			// document.documentElement.classList.toggle('popup-open');
-// 			// document.documentElement.classList.toggle("popup-open");
-// 			document.documentElement.classList.toggle("contacts-open");
-// 			document.documentElement.classList.remove("menu-open");
-// 			// document.body.classList.add('popup-show');
-// 		});
-		
-// 		// window.addEventListener('click', function(e) {
-// 		// 	if(!document.querySelector(e.target).closest('.header__contacts').length) {
-// 		// 		document.documentElement.classList.remove("contacts-open");
-// 		// 	}
-// 		// })
-// 	} 
-
-	
-// 	// else if(!contactsBody) {
-// 	// 	document.documentElement.classList.remove("contacts-open");
-// 	// 	document.body.classList.remove('popup-show');
-//     // };
-// }
-// contactsInit();
-
-
-
 
 
 

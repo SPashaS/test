@@ -22,19 +22,13 @@ $blueColor: #7099B9;
 $snowColor: #EDEEE9;
 $yellowColor: #FBC13B;
 
-.r {
-	color: #2f6e9e;
-	color: #242627;
-}
-
-
 // НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
 // Минимальная ширина страницы
 $minWidth: 320;
 // Ширина полотна (макета)
 $maxWidth: 1920;
 // Ширина ограничивающего контейнера (0 = нет ограничения)
-$maxWidthContainer: 1840;
+$maxWidthContainer: 1500;
 // Общий отступ у контейнера
 // (30 = по 15px слева и справа, 0 = нет отступа)
 $containerPadding: 30;
@@ -57,7 +51,8 @@ $containerWidth: $maxWidthContainer + $containerPadding;
 // }
 
 // Брейк-поинты
-$pc: $containerWidth+px; // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+// $pc: $containerWidth+px; // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$pc: 1919.98px;
 $pcSmall: 1365.98px;
 $tablet: 1023.98px; // Планшеты, некоторые телефоны в горизонтальном положении
 $mobile: 767.98px; // Телефоны L
@@ -67,7 +62,6 @@ $mobile: 767.98px; // Телефоны L
 @import "base/null";
 
 body {
-	
 	// Скролл заблокирован
 	.lock & {
 		overflow: hidden;
@@ -75,8 +69,17 @@ body {
 	}
 	// Сайт загружен
 	.loaded & {
+		// opacity: 1;
 	}
 }
+.header,
+.main-slider  {
+	.loaded & {
+		opacity: 1;
+	}
+}
+
+
 // Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
 .wrapper {
 	min-height: 100%;
@@ -132,9 +135,10 @@ body {
 		// 	}
 		// }
 		@media only screen and (min-width: $mobile) {
-			padding: 0 20px;
+			padding: 0 40px;
 		}
 		@media only screen and (min-width: $tablet) {	
+			padding: 0 60px;
 		}
 		@media only screen and (min-width: $pcSmall) {
 			padding: 0 60px;
@@ -144,6 +148,123 @@ body {
 		}
 	}
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #1F1F1F;
+	font-weight: 700;
+	// font-weight: inherit;
+	// font-size: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	&:not(:last-child) {
+		margin-bottom: 20px;
+	}
+}
+
+h1{
+    font-size: 19px;
+	@media only screen and (min-width: $mobile) {
+		font-size: 26px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 32px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 38px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 48px;
+	}
+}
+h2 {
+	font-size: 17px;
+	@media only screen and (min-width: $mobile) {
+		font-size: 24px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 30px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 32px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 36px;
+	}
+}
+h3 {
+	font-size: 16px;
+	@media only screen and (min-width: $mobile) {
+		font-size: 22px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 26px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 28px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 30px;
+	}
+}
+h4 {
+	font-size: 15px;
+	@media only screen and (min-width: $mobile) {
+		font-size: 18px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 20px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 22px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 24px;
+	}
+}
+h5 {
+	font-size: 14px;
+	@media only screen and (min-width: $mobile) {
+		font-size: 15px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 16px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 18px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 20px;
+	}
+}
+h6 {
+	font-size: 13px;
+	&:not(:last-child) {
+		margin-bottom: 12px;
+	}
+	@media only screen and (min-width: $mobile) {
+		font-size: 14px;
+	}
+	@media only screen and (min-width: $tablet) {
+		font-size: 15px;	
+	}
+	@media only screen and (min-width: $pcSmall) {
+		font-size: 16px;
+	}
+	@media only screen and (min-width: $pc) {
+		font-size: 17px;
+	}
+}
+
 
 // Подключение базовых стилей, шаблонов (заготовок) и вспомагательных классов
 // Для подключения/отключения конкретных стилей смотри base.scss
@@ -158,3 +279,4 @@ body {
 
 // Подключение стилей отдельных страниц
 @import "home";
+@import "page";

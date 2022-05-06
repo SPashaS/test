@@ -265,6 +265,7 @@ class Popup {
 		if (!this._reopen) {
 			document.body.classList.remove(this.options.classes.bodyActive);
 			bodyLockToggle();
+			// bodyLock();
 			this.isOpen = false;
 		}
 		// Очищение адресной строки

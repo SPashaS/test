@@ -1,1 +1,42 @@
-<script src="js/app.min.js"></script>
+<script>
+    document.querySelector('.themetoggle').addEventListener('click', (e) => {
+        if(localStorage.getItem('theme') === 'dark') {
+            localStorage.removeItem('theme');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+        addDarkClassToHTML();
+    });
+
+    function addDarkClassToHTML() {
+        try {
+            const slideOnHome = document.querySelector('.slide-main-slider');
+            let header = document.querySelector('.header');
+
+            if(localStorage.getItem('theme') === 'dark') {
+                document.querySelector('html').classList.add('dark');
+
+                if( slideOnHome ) {
+                    const headerBackground = document.querySelector('.header__background');
+                    headerBackground.style.display = "none";
+                    header.style.position = "absolute";
+                }
+            } else {
+                document.querySelector('html').classList.remove('dark');
+                header.style.position = "relative";
+            }
+        } catch (err) {}
+    }
+    addDarkClassToHTML();
+
+    let listUl = document.querySelectorAll('.menu__sub-list');
+    listUl.forEach(function(item, i, listUl) {
+        if(item) {
+            item.insertAdjacentHTML("afterbegin",'<div class="menu__sub-list-back _icon-arrow-r">Назад</div>');
+            item.parentElement.insertAdjacentHTML("beforeend",'<div class="menu__button-sub-open _icon-arrow-r"></div>');
+        };
+    });
+</script>
+<script defer src="js/simplebar.min.js"></script>
+<script defer src="js/app.min.js"></script>
+<!-- <script defer src="js/main.js"></script> -->

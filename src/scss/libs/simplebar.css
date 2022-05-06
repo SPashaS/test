@@ -1,10 +1,11 @@
 [data-simplebar] {
   position: relative;
-  flex-direction: column;
+  display: flex;
+  /* flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-start; */
 }
 
 .simplebar-wrapper {
@@ -208,4 +209,34 @@
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+
+.simplebar-content {
+  display: flex;
+  justify-content: space-between;
+}
+.simplebar-track.simplebar-horizontal {
+  height: 4px;
+}
+.simplebar-scrollbar:before{
+  opacity: 1;
+}
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar {
+  right: auto;
+  left: 0;
+  top: 0;
+  height: 4px;
+  min-height: 0;
+  min-width: 10px;
+  width: auto;
+}
+.simplebar-scrollbar.simplebar-visible:before {
+  opacity: 1;
+}
+.simplebar-track.simplebar-horizontal .simplebar-scrollbar:before {
+  left: 0;
+  right: 0;
+  border-radius: 4px;
+  background: #FBC13B;
 }

@@ -24,15 +24,29 @@ body {
 body {
 	color: $mainColor;
 	line-height: 1.2;
-	font-family: $fontFamily;
-	font-size: $fontSize;
+	font-family: $fontFamily, Arial, sans-serif;
+	font-size: 14px;
 	//text-rendering: optimizeLegibility;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	
+	@media only screen and (min-width:$mobile){
+		font-size: 15px;
+	}
+	@media only screen and (min-width:$tablet){
+		font-size: 16px;
+	}
+	@media only screen and (min-width:$pcSmall){
+		font-size: 17px;
+	}
+	@media only screen and (min-width:$pc){
+		font-size: 17px;
+	}
 }
+
 input,
 button,
 textarea {
@@ -42,7 +56,8 @@ textarea {
 button {
 	cursor: pointer;
 	color: inherit;
-	background-color: inherit;
+	// background-color: inherit;
+	background-color: transparent;
 }
 a {
 	color: inherit;
@@ -60,12 +75,4 @@ ul li {
 img {
 	vertical-align: top;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-weight: inherit;
-	font-size: inherit;
-}
+

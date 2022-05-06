@@ -25,22 +25,9 @@
 	font-size: 23px;
     display: inline-block;
     position: relative;
-    &::after{
-        position: absolute;
-        content: "";
-        left: 0;
-        right: 0;
-        height: 2px;
-        bottom: 2px;
-        background: $blueColor;
-        width: 0;
-        transition: all 0.3s ease 0s;
-    }
     @media (any-hover: hover){
         &:hover{
-            &::after {
-                width: 100%;
-            }
+            opacity: 0.8;
         }
     }
 }
@@ -50,6 +37,8 @@ a.email {
 	color: $blueColor;
 	text-decoration-line: underline;
     transition: all 0.3s ease 0s;
+    font-size: 13px;
+	line-height: 1.69;
     @media (any-hover: hover){
         &:hover{
             opacity: 0.7;
@@ -65,6 +54,7 @@ a.email {
 	height: 37px;
 	padding: 0 22px;
     transition: all 0.3s ease 0s;
+    white-space: nowrap;
     &_blue {
         border-color: $blueColor;
         color: $blueColor;
@@ -102,14 +92,14 @@ a.email {
 		background: $snowColor;
 		border-radius: 50%;
         color: #fff;
-        transition: color 0.3s ease 0s;
         position: relative;
-
+        transition: all 0.3s ease 0s;
         svg {
             fill: #fff;
         }
         svg,
         &::before{
+            font-size: 14px;
             transition: all 0.3s ease 0s;
             position: absolute;
             top: 50%;
@@ -152,12 +142,85 @@ a.email {
         }
         @media (any-hover: hover){
             &:hover{
-                // opacity: 0.8;
-                color: #000;
+                opacity: 0.6;
             }
         }
 	}
 }
+
+.article-page {
+    p {
+        line-height: 1.68;
+    }
+    // .content__images
+	&__images {
+        // padding-top: 10px;
+        padding-bottom: 38px;
+        @media only screen and (min-width:$mobile){
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-bottom: 28px;
+        }
+	}
+    &__image {
+        flex: 0 1 percent(723.3,1500);
+        display: none;
+        &:first-child {
+            display: block;
+        }
+        @media only screen and (min-width:$mobile){
+            display: block;
+            &:nth-child(1n+3) {
+                @include adaptiveValue("padding-top",53,24,1870,768);
+            }
+        }
+    }
+	// .content__image
+	&__image-ibg {
+        padding-bottom: percent(464,723);
+        img {
+            border-radius: 20px;
+            @media only screen and (min-width:$mobile){
+                border-radius: 33px;
+            }
+        }
+	}
+
+
+
+    // .content-inner-page__row
+	&__row {
+        margin-bottom: 20px;
+        @media only screen and (min-width:$tablet){
+            display: flex;
+            
+        }
+	}
+
+	// .content-inner-page__row-image
+	&__row-image {
+        margin-bottom: 20px;
+        img{
+            width: 100%;
+            border-radius: 8px;
+        }
+        @media only screen and (min-width:$tablet){
+            flex: 0 1 560px;
+            padding-right: 32px;
+        }
+	}
+
+	// .content-inner-page__row-text
+	&__row-text {
+        @media only screen and (min-width:$tablet){
+            padding-top: 5px;
+            flex: 0 1 560px;
+        }
+	}
+}
+
+
 //====================================================================================================
 .contacts-block {
     display: flex;
@@ -198,17 +261,12 @@ a.email {
                 opacity: 0.7;
             }
         }
-        // @media only screen and (min-width:$tablet){
-        //     font-size: 20px;
-        // }
         @media only screen and (min-width:$pcSmall){
             font-size: 22px;
+            line-height: 1
         }
-        @media only screen and (min-width:$pcSmall){
+        @media only screen and (min-width:$pc){
             font-size: 26px;
-        }
-        @media only screen and (min-width:$pcSmall){
-            line-height: 1;
         }
 	}
     .contacts-block__email {
@@ -218,7 +276,6 @@ a.email {
 		font-weight: 400;
 		font-size: 13px;
 		line-height: 1.69;
-		// display: block;
 		color: #fff;
 		align-items: center;
 		text-decoration-line: underline;
@@ -230,9 +287,24 @@ a.email {
     }
 }
 //====================================================================================================
-
-
-
+.slider-dotts {
+    display: flex;
+    justify-content: center;
+    .swiper-pagination-bullet {
+        transition: all 0.3s ease 0s;
+        flex: 0 0 7px;
+        height: 7px;
+        width: 7px;
+        border-radius: 3.5px;
+        background-color: #EDEEE9;
+        margin: 0 3.5px;
+        cursor: pointer;
+    }
+    .swiper-pagination-bullet-active {
+        flex: 0 0 32.2px;
+        background-color: $yellowColor;
+    }
+}
 
 //====================================================================================================
 

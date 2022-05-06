@@ -105,8 +105,15 @@ body.popup-show::after {
 		transform: translate(-7px, 6px);
 		background: 0;
 		&::before{
-			font-size: 18px;
-			color: #000;
+			font-size: 13px;
+			color: #93989E;
+			padding: 5px;
+
+			@media only screen and (min-width:$mobile){	
+				font-size: 18px;
+				color: #000;
+				padding: 0;
+			}
 		}
 		@media only screen and (min-width:$mobile){
 			transform: translate(18px, -18px);
@@ -125,19 +132,24 @@ body.popup-show::after {
 	// .popup__title
 
 	&__title {
+		font-size: 19px;
 		font-weight: 600;
-		font-size: 36px;
-		line-height: 43px;
 		margin-bottom: 13px;
 		color: #1F1F1F;
+		@media only screen and (min-width:$tablet){
+			font-size: 36px;
+		}
 	}
 
 	// .popup__sub-title
 	&__sub-title {
-		font-size: 15px;
-		line-height: 22px;
+		font-size: 13px;
+		line-height: 1.46;
 		color: #8B8B8B;
 		margin-bottom: 33px;
+		@media only screen and (min-width:$tablet){
+			font-size: 15px;
+		}
 	}
 
 	// .popup__form
@@ -182,9 +194,10 @@ body.popup-show::after {
 			border-radius: 10px;	
 			padding: 0 20px;
 			display: block;
-			// position: absolute;
-			// top: 0;
-			// left: 0;
+			font-size: 13px;
+			@media only screen and (min-width:$tablet){
+				font-size: 17px;
+			}
 		}
 
 		input {
@@ -199,6 +212,7 @@ body.popup-show::after {
 			resize: none;
 			padding: 20px 25px;
 			height: 130px;
+			width: 100%;
 		}
 
 		label {
@@ -222,12 +236,6 @@ body.popup-show::after {
 			padding: 0 10px 0 25px;
 		}
 		
-		.form-popup__button{
-
-		}
-		.form-popup__agreement{
-
-		}
 	}
 	// .form-popup__button
 	&__button {
@@ -238,6 +246,8 @@ body.popup-show::after {
 	&__agreement {
 		align-self: center;
 		max-width: 320px;
+
+		
 	}
 
 	// .form-popup__checkbox
@@ -264,3 +274,8 @@ body.popup-show::after {
 	}
 }
 
+#contact {
+	.form-popup__agreement {
+		max-width: 452px;
+	}
+}

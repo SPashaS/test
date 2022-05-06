@@ -48,8 +48,12 @@
 	}
 	// .checkbox__text
 	&__text {
+		color: #8B8B8B;
+		line-height: 1.46;
+		font-size: 13px;
 		a {
 			text-decoration-line: underline;
+			color: #8B8B8B;
 		}
 	}
 }

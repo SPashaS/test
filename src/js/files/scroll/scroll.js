@@ -56,34 +56,46 @@ export function headerScroll() {
 	const header = document.querySelector('header.header');
 	const headerShow = header.hasAttribute('data-scroll-show'); // Добавить
 	const headerShowTimer = header.dataset.scrollShow ? header.dataset.scrollShow : 500;
-	const startPoint = header.dataset.scroll ? header.dataset.scroll : 1;
-	let scrollDirection = 0;
+	// const startPoint = header.dataset.scroll ? header.dataset.scroll : 1;
+	const startPoint = 1;
+	// const startPoint = headerHeigth;
+	// const startPoint = 200;
+	let scrollDirection = 100;
 	let timer;
-	document.addEventListener("windowScroll", function (e) {
-		const scrollTop = window.scrollY;
-		clearTimeout(timer);
-		if (scrollTop >= startPoint) {
-			!header.classList.contains('_header-scroll') ? header.classList.add('_header-scroll') : null;
-			if (headerShow) {
-				if (scrollTop > scrollDirection) {
-					// downscroll code
-					header.classList.contains('_header-show') ? header.classList.remove('_header-show') : null;
-				} else {
-					// upscroll code
-					!header.classList.contains('_header-show') ? header.classList.add('_header-show') : null;
+
+	if(window.innerWidth > 1023.98) {
+
+		document.addEventListener("windowScroll", function (e) {
+			const scrollTop = window.scrollY;
+			clearTimeout(timer);
+
+			if (scrollTop >= startPoint) {
+				!header.classList.contains('_header-scroll') ? header.classList.add('_header-scroll') : null;
+				
+				// scrollTop >= 250 ? header.classList.add('fixed-header') : null;
+				if (headerShow) {
+					if (scrollTop < scrollDirection) {
+						// downscroll code
+						header.classList.contains('_header-show') ? header.classList.remove('_header-show') : null;
+					} else {
+						// upscroll code
+						!header.classList.contains('_header-show') ? header.classList.add('_header-show') : null;
+					}
+					// timer = setTimeout(() => {
+					// 	!header.classList.contains('_header-show') ? header.classList.add('_header-show') : null;
+					// }, headerShowTimer);
 				}
-				timer = setTimeout(() => {
-					!header.classList.contains('_header-show') ? header.classList.add('_header-show') : null;
-				}, headerShowTimer);
+			} else {
+				header.classList.contains('_header-scroll') ? header.classList.remove('_header-scroll') : null;
+				// main.style.paddingTop = 0;
+				if (headerShow) {
+					header.classList.contains('_header-show') ? header.classList.remove('_header-show') : null;
+				}
 			}
-		} else {
-			header.classList.contains('_header-scroll') ? header.classList.remove('_header-scroll') : null;
-			if (headerShow) {
-				header.classList.contains('_header-show') ? header.classList.remove('_header-show') : null;
-			}
-		}
-		scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
-	});
+			// scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
+		});
+
+	}
 }
 // Прилипающий блок
 export function stickyBlock() {
