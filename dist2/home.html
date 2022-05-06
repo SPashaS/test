@@ -14,7 +14,7 @@
 			opacity: 0;
 		}
 	</style>
-	<link rel="stylesheet" href="css/start.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -703,17 +703,8 @@
 		</div>
 	</div>
 
-	<!-- стили -->
-	<link rel="stylesheet" href="css/simple-bar.css">
-	<link rel="stylesheet" href="css/fonts.css">
-	<link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="css/menu.css">
-	<link rel="stylesheet" href="css/main-slider.css">
-	<link rel="stylesheet" href="css/about.css">
-	<link rel="stylesheet" href="css/footer.css">
-	<!-- js -->
+	<!-- смена темы -->
 	<script>
-		// определение темы
 		document.querySelector('.themetoggle').addEventListener('click', (e) => {
 			if (localStorage.getItem('theme') === 'dark') {
 				localStorage.removeItem('theme');
@@ -743,7 +734,7 @@
 			} catch (err) {}
 		}
 		addDarkClassToHTML();
-		// добавление кнопок
+
 		let listUl = document.querySelectorAll('.menu__sub-list');
 		listUl.forEach(function(item, i, listUl) {
 			if (item) {
@@ -755,5 +746,6 @@
 	<script src="js/simplebar.min.js"></script>
 	<script src="js/app.min.js"></script>
 	<script src="js/main.js"></script>
+
 </body>
 </html>
