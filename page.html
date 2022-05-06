@@ -5,7 +5,6 @@
 	<title>Внутренняя страница</title>
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
-	<!-- <style>body{opacity: 0;}</style> -->
 	<style>
 		.header {
 			opacity: 0;
@@ -17,7 +16,6 @@
 	</style>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.ico">
-	<!-- <meta name="robots" content="noindex, nofollow"> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -39,7 +37,6 @@
 							<nav class="menu__body">
 								<ul class="menu__list">
 									<li class="menu__item"><a href="https://spashas.github.io/test/home.html" class="menu__link">Главная</a></li>
-									<li class="menu__item"><a href="https://spashas.github.io/test/home2.html" class="menu__link">Главная - 2</a></li>
 									<li class="menu__item"><a href="https://spashas.github.io/test/page.html" class="menu__link">Внутренняя</a></li>
 									<li class="menu__item">
 										<a href="#" class="menu__link">О компании</a>
@@ -554,6 +551,7 @@
 			</div>
 		</footer>
 	</div>
+	<!-- попапы -->
 	<div id="callback" aria-hidden="true" class="popup">
 		<div class="popup__wrapper">
 			<div class="popup__content">
@@ -586,9 +584,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<div id="contact" aria-hidden="true" class="popup">
 		<div class="popup__wrapper">
 			<div class="popup__content">
@@ -632,7 +627,7 @@
 		</div>
 	</div>
 
-
+	<!-- смена темы -->
 	<script>
 		document.querySelector('.themetoggle').addEventListener('click', (e) => {
 			if (localStorage.getItem('theme') === 'dark') {
@@ -671,76 +666,11 @@
 				item.parentElement.insertAdjacentHTML("beforeend", '<div class="menu__button-sub-open _icon-arrow-r"></div>');
 			};
 		});
-		/* Проверка мобильного браузера */
-		let isMobile = {
-			Android: function() {
-				return navigator.userAgent.match(/Android/i);
-			},
-			BlackBerry: function() {
-				return navigator.userAgent.match(/BlackBerry/i);
-			},
-			iOS: function() {
-				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-			},
-			Opera: function() {
-				return navigator.userAgent.match(/Opera Mini/i);
-			},
-			Windows: function() {
-				return navigator.userAgent.match(/IEMobile/i);
-			},
-			any: function() {
-				return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-			}
-		};
-		/* Добавление класса touch для HTML если браузер мобильный */
-		function addTouchClass() {
-			// Добавление класса _touch для HTML если браузер мобильный
-			if (isMobile.any()) document.documentElement.classList.add('touch');
-		}
-		addTouchClass();
 
-		// длинное меню
-		// function menuDotts() {
-		//     console.log(window.innerWidth);
-		//     if(window.innerWidth > 1023.98) {
-		//         let enumeration = [];
-		//         const menuItem = document.querySelector('.menu__list').children;
-		//         const menu = document.querySelector('.menu');
-		//         const menuWidth = menu.offsetWidth;
-		//         const menuBody = document.querySelector('.menu__body');
-		//         let left = 110;
-		//         console.dir(menuItem);
-
-		//         Array.from(menuItem).forEach(function(item, i, menuItem) {
-		//             let width = item.clientWidth;
-		//             left +=  width;
-
-		//             if(window.innerWidth > 1023.98 && window.innerWidth < 1365.98) {
-		//                 left += 12;
-		//             } else 
-		//             if (window.innerWidth > 1365.98 && window.innerWidth < 1919.98) {
-		//                 left += 16;
-		//             } else if(window.innerWidth > 1919.98) {
-		//                 left += 29;
-		//             }
-		//             console.log(`лево ${left}`);
-		//             if( menuWidth < left ) {
-		//                 enumeration.push(item);
-		//             };
-		//         });
-		//         if(menuWidth < left) {
-		//             menuBody.insertAdjacentHTML("beforeend",'<div class="menu__more"><div class="menu__more-btn _icon-ellipsis-vertical"></div><ul class="menu__list"></ul></div>');
-		//         }
-		//         const more = document.querySelector('.menu__more>.menu__list');
-		//         for (let i = 0; i < enumeration.length; i++) {
-		//             more.append(enumeration[i]);
-		//         }
-		//     }
-		// }
-		// menuDotts();
 	</script>
 	<script defer src="js/simplebar.min.js"></script>
-	<script defer src="js/app.min.js?_v=20220506143740"></script>
+	<script defer src="js/app.min.js"></script>
+	<script defer src="js/main.js"></script>
 </body>
 
 </html>
